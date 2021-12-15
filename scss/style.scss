@@ -11,12 +11,12 @@ body{
 
    &__form{
        
-        background: rgb(122, 122, 122);
-        width: 50%;
+    color: rgb(255, 201, 101);
+    width: 50%;
 
         &--title{
             h1{
-                color: rgb(191, 255, 101);
+                color: rgb(184, 169, 140);
                 margin-left: 40px;
                 font-size: 40px;
             }
@@ -25,12 +25,14 @@ body{
             display: flex;
             justify-content: space-around;
             align-items: center;
-            width: 50%;
+            width: 70%;
             margin: 0 auto;
 
             .input{
-                width:100px;
-                background: red;
+                width:200px;
+                background: #fff;
+                border:none;
+                border-bottom: 3px solid pink;
                 padding:10px;
             }
             .field_description{
@@ -40,7 +42,7 @@ body{
     }
 
     &__calc{
-        background: rgb(91, 91, 91);
+        background: rgb(248, 171, 5);
         width: 50%;
 
         h2{
