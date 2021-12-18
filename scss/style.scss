@@ -1,22 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;1,100&display=swap');
 body{
     background-color: #333;
     margin: 0px;
+    --light-color: #DFD3C3;
+    --darker-color: #C7B198;
 }
 
 .budget{
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: row;
     height:100vh;
     width: 100%;
 
-   &__form{
-       
+   &__form{  
     color: rgb(255, 201, 101);
     width: 50%;
+    background: var(--light-color);
 
         &--title{
             h1{
-                color: rgb(184, 169, 140);
+                color: var(--darker-color);
                 margin-left: 40px;
                 font-size: 40px;
             }
@@ -31,25 +35,49 @@ body{
             .input{
                 width:200px;
                 background: #fff;
+                color: #333;
                 border:none;
-                border-bottom: 3px solid pink;
+                border-bottom: 3px solid #333;
                 padding:10px;
             }
-            .field_description{
-                
+
+            .operator{
+                border-radius: 50%;
+                background: var(--darker-color);
+                color: var(--light-color);
+                border: none;
+                padding: 5px 7px;
+                font-size: 23px;
             }
+
         }
     }
 
     &__calc{
-        background: rgb(248, 171, 5);
+        background: var(--darker-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         width: 50%;
 
-        h2{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
+        &--sum{
+            color: var(--light-color);
         }
+        &--entries{
+            font-size:25px;
+            font-weight: 500;
+
+            .incomes{
+                color: rgb(99, 187, 99);
+                
+            }
+            .expenses{
+                color:rgb(175, 61, 61);
+            }
+        }
+
+        
     }
 }
+

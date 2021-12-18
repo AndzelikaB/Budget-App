@@ -21,19 +21,33 @@
             <div class="budget__form--title">
                 <h1> Budget App </h1>
             </div>
-
+<div class="formxd">
             <div class="budget__form--operation">
-                <button class="sign"> <i class="fas fa-plus"></i>  </button>  
+                <button class="operator sign"> <i class="fas fa-plus"></i>  </button>  
                 <!-- <i class="fas fa-minus"></i> -->
                 <input class="input field_description" type="text" value="Description" onfocus="this.value=''">
                 <input class="input field_value" type="text" value="Value">
-                <button class="add"> <i class="fas fa-check"></i> </button>
+                <button class="operator add"> <i class="fas fa-check"></i> </button>
             </div>
+        </div>
             
         </section>
 
         <section class="budget__calc">
-            <h2>Your total budget is</h2> 
+            <div class="budget__calc--sum" data-total > <h2> Your total budget is: </h2>  </div>
+           
+
+            <div class="budget__calc--entries">
+                <div class="incomes">  
+                   Incomes
+                </div>
+
+            
+                <div class="expenses">   
+                    Expenses 
+                </div>
+            </div>
+
         </section>
 
     </div>
