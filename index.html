@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="https://www.dpcraft.pl/files/fotob/product-1014.jpg" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <script src="js/script.js"></script>
     <title> App Budget </title>
 </head>
@@ -18,33 +19,41 @@
     </header> -->
     <div class="budget">
         <section class="budget__form">
-            <div class="budget__form--title">
-                <h1> Budget App </h1>
+            <div class="budget__form--column1">
+                <div class="title">
+                    <h1> Budget App </h1>
+                </div>
             </div>
-<div class="formxd">
-            <div class="budget__form--operation">
-                <button class="operator sign"> <i class="fas fa-plus"></i>  </button>  
-                <!-- <i class="fas fa-minus"></i> -->
-                <input class="input field_description" type="text" value="Description" onfocus="this.value=''">
-                <input class="input field_value" type="text" value="Value">
-                <button class="operator add"> <i class="fas fa-check"></i> </button>
+
+            <div class="budget__form--column2">
+                <div class="operations">
+                    <button class="sign sign__plus"> <i class="fas fa-plus"></i> </button>
+                    <button class="sign sign__minus hide "> <i class="fas fa-minus"></i> </button>
+
+                    <input class="input field_description" type="text" value="Description" onfocus="this.value=''">
+                    <input class="input field_value" type="text" value="Value" onfocus="this.value=''">
+
+                    <button class="sign sign__add"> <i class="fas fa-check"></i> </button>
+                </div>
             </div>
-        </div>
-            
+
         </section>
 
         <section class="budget__calc">
-            <div class="budget__calc--sum" data-total > <h2> Your total budget is: </h2>  </div>
-           
-
-            <div class="budget__calc--entries">
-                <div class="incomes">  
-                   Incomes
+            <div class="budget__calc--column1">
+                <div class="summary" data-total>
+                    <h2> Your total budget is: </h2>
                 </div>
+            </div>
 
-            
-                <div class="expenses">   
-                    Expenses 
+            <div class="budget__calc--column2">
+                <div class="entries">
+                    <div class="incomes">
+                        Incomes
+                    </div>
+                    <div class="expenses">
+                        Expenses
+                    </div>
                 </div>
             </div>
 
