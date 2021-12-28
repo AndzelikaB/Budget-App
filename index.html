@@ -27,13 +27,13 @@
 
             <div class="budget__form--column2">
                 <div class="operations">
-                    <button class="sign sign__plus"> <i class="fas fa-plus"></i> </button>
-                    <button class="sign sign__minus hide "> <i class="fas fa-minus"></i> </button>
+                    <button class="sign sign__plus data-plusBtn"> <i class="fas fa-plus"></i> </button>
+                    <button class="sign sign__minus data-minusBtn hide "> <i class="fas fa-minus"></i> </button>
 
                     <input class="input field_description" type="text" value="Description" onfocus="this.value=''">
                     <input class="input field_value" type="text" value="Value" onfocus="this.value=''">
 
-                    <button class="sign sign__add"> <i class="fas fa-check"></i> </button>
+                    <button class="sign sign__add data-addBtn"> <i class="fas fa-check"></i> </button>
                 </div>
             </div>
 
@@ -60,6 +60,12 @@
         </section>
 
     </div>
-</body>
+    <script src="js/script.js"></script>
+    
+<script>
+    const app = new BudgetApp();
+    app.initializeApp();
+</script>
 
+</body>
 </html>
