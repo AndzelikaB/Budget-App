@@ -1,34 +1,50 @@
 class BudgetApp {
-    constructor() {
-        this.plusButton = null;
+    constructor(){
+        this.plusBtn = null;
         this.minusBtn = null;
-        this.addBtn = null;
+        this.addBtn= null;
 
-        this.UiSelectors = {
-            plusButton: '[data-this.plusBtn]',
+       this.UiSelectors = {
+            plusBtn: '[data-plusBtn]',
             minusBtn: '[data-minusBtn]',
             addBtn: '[data-addBtn]'
         };
     }
+        initializeApp() {
+            this.plusBtn = document.querySelector(this.UiSelectors.plusBtn);
+            this.minusBtn = document.querySelector(this.UiSelectors.minusBtn);
+            this.addBtn = document.querySelector(this.UiSelectors.addBtn);
 
-    initializeApp() {
-        this.plusBtn = document.querySelector(this.UiSelectors.plusBtn);
-        this.minusBtn = document.querySelector(this.UiSelectors.minusBtn);
-        this.addBtn = document.querySelector(this.UiSelectors.addBtn);
-
-    }
-
-    plusTOminus() {
-
-    }
+            console.log("sima");
+            this.eventListeners();
+        }
 
     eventListeners() {
-        this.plusBtn.addEventListener('click', () => console.log('xdxd'));
-        this.minusBtn.addEventListener('click', () => this.minusFunction());
-        this.addBtn.addEventListener('click', () => this.addFunction());
+        this.plusBtn.addEventListener('click', () => this.plus());
+        this.minusBtn.addEventListener('click', () => this.minus());
+        this.addBtn.addEventListener('click', () => this.add());
     }
 
-    addFunction() {
-        console.log('xdxd')
+    plus(){
+        console.log('Plus function');
+        this.plusBtn.classList.toggle('hide');
+        this.minusBtn.classList.toggle('hide');
+    }
+
+    minus(){
+        console.log('Minus function');
+        this.minusBtn.classList.toggle('hide');
+        this.plusBtn.classList.toggle('hide');
+    }
+
+    add(){
+        console.log("wartość = " + this.minusBtn.classList.value);
+
+        if(this.minusBtn.classList.value == 'sign sign__minus'){
+            console.log("sign minus");
+        }
+        else if(this.minusBtn.classList.value != 'sign sign__minus')  {
+            console.log("sign Plus");
+        }
     }
 }
