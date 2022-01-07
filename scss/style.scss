@@ -66,6 +66,7 @@ body {
                     padding: 5px 7px;
                     font-size: 23px;
                     cursor: pointer;
+                    // background: rgb(105, 193, 5);
 
                     &__plus {
                         background: rgb(105, 193, 5);
@@ -107,18 +108,67 @@ body {
             justify-content: center;
             align-items: center;
             height: 50%;
+            flex-direction: column;
 
-            .entries {
+            .incomes {
                 font-size: 25px;
-                font-weight: 500;
 
-                .incomes {
-                    color: rgb(99, 187, 99);
-
+                &__title {
+                    color: rgb(105, 193, 5);
+                    font-size: 25px;
+                    font-weight: 500;
                 }
 
-                .expenses {
+                &__list {
+                    &--item {
+                        justify-content: space-between;
+                        display: flex;
+                        align-items: center;
+                        min-width: 250px;
+                        list-style: none;
+                        background: #fff;
+                        color: #333;
+                        text-align: center;
+                        padding: 5px 20px;
+                        box-shadow: 5px 5px 5px #333;
+                        margin: 20px 0;
+
+                        .button {
+                            display: none;
+                        }
+                    }
+
+                    &:hover {
+                        .button {
+                            display: flex;
+                            align-items: center;
+                            background: #c7b198;
+                            padding: 3px;
+                            color: #ffefda;
+
+
+                            &__trash,
+                            &__edit {
+                                border: none;
+                                background: transparent;
+                                font-size: 20px;
+                                padding: 0px 5px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .expenses {
+                &__title {
                     color: rgb(175, 61, 61);
+                    font-size: 25px;
+                    font-weight: 500;
+                }
+
+                &__list {
+                    &--item {}
                 }
             }
         }

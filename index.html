@@ -27,45 +27,66 @@
 
             <div class="budget__form--column2">
                 <div class="operations">
-                    <button class="sign sign__plus" data-plusBtn> <i class="fas fa-plus"></i> </button>
-                    <button class="sign sign__minus hide" data-minusBtn > <i class="fas fa-minus"></i> </button>
+                    <button class="sign sign__plus" data-operationBtn> + </button>
+                    <!-- <i class="fas fa-plus"></i> <button class="sign sign__minus hide" data-minusBtn> <i class="fas fa-minus"></i> </button> -->
 
-                    <input class="input field_description" data-description type="text" value="Description" onfocus="this.value=''">
+                    <input class="input field_description" data-description type="text" value="Description"
+                        onfocus="this.value=''">
                     <input class="input field_value" data-value type="text" value="Value" onfocus="this.value=''">
 
                     <button class="sign sign__add" data-addBtn> <i class="fas fa-check"></i> </button>
                 </div>
             </div>
-
         </section>
 
         <section class="budget__calc">
             <div class="budget__calc--column1">
-                <div class="summary" data-total>
-                    <h2> Your total budget is: </h2>
+                <div class="summary">
+                    <h2> Your total budget is: <h1 data-totalBudget> 500.40zł </h1>
+                    </h2>
                 </div>
             </div>
 
             <div class="budget__calc--column2">
-                <div class="entries">
-                    <div class="incomes">
-                        Incomes
-                    </div>
-                    <div class="expenses">
-                        Expenses
-                    </div>
-                </div>
-            </div>
+                <div class="incomes">
+                    <h1 class="incomes__title"> Incomes </h1>
+                    <ul class="incomes__list" data-list>
 
-        </section>
+
+                        <!-- <li class="incomes__list--item">
+                            <span data-postedDesc> Chleb </span>
+                            <span data-postedValue> +4.99zł </span>
+                            <div class="button">
+                                <button class="button button__edit" data-editBtn> <i class="far fa-edit"></i> </button>
+                                <button class="button button__trash" data-trashBtn> <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </li> -->
+
+                    </ul>
+                </div>
+
+                <div class="expenses">
+                    <h1 class="expenses__title"> Expenses </h1>
+
+                    <ul class="expenses__list">
+
+                    </ul>
+                </div>
+
+            </div>
+    </div>
+
+    </section>
 
     </div>
     <script src="./js/script.js"></script>
-    
-<script>
-    const app = new BudgetApp();
-    app.initializeApp();
-</script>
+
+    <script>
+        const app = new BudgetApp();
+        app.initializeApp();
+    </script>
 
 </body>
+
 </html>

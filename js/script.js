@@ -1,81 +1,89 @@
 class BudgetApp {
+
     constructor() {
-        this.plusBtn = null;
-        this.minusBtn = null;
+        this.operationBtn = null;
         this.addBtn = null;
+        this.totalBudget = 0;
 
         this.UiSelectors = {
-            plusBtn: '[data-plusBtn]',
-            minusBtn: '[data-minusBtn]',
+            operationBtn: '[data-operationBtn]',
             addBtn: '[data-addBtn]',
             descriptionField: '[data-description]',
             valueField: '[data-value]',
+            totalBudget: '[data-totalBudget]',
+            postedDesc: '[data-postedDesc]',
+            postedValue: '[data-postedValue]',
+            editBtn: '[data-editBtn]',
+            trashBtn: '[data-trashBtn]',
+            list: '[data-list]',
         };
     }
     initializeApp() {
-        this.plusBtn = document.querySelector(this.UiSelectors.plusBtn);
-        this.minusBtn = document.querySelector(this.UiSelectors.minusBtn);
+        //Left Side
+        this.operationBtn = document.querySelector(this.UiSelectors.operationBtn);
         this.addBtn = document.querySelector(this.UiSelectors.addBtn);
         this.descriptionField = document.querySelector(this.UiSelectors.descriptionField);
+        this.postedDesc = document.querySelector(this.UiSelectors.postedDesc);
+        this.postedValue = document.querySelector(this.UiSelectors.postedValue);
+
         this.valueField = document.querySelector(this.UiSelectors.valueField);
+        this.totalBudget = document.querySelector(this.UiSelectors.totalBudget);
 
-        console.log("sima");
+        //Right side
+        this.editBtn = document.querySelector(this.UiSelectors.editBtn);
+        this.trashBtn = document.querySelector(this.UiSelectors.trashBtn);
+        this.list = document.querySelector(this.UiSelectors.list);
         this.eventListeners();
-
     }
 
     eventListeners() {
-        this.plusBtn.addEventListener('click', () => this.plus());
-        this.minusBtn.addEventListener('click', () => this.minus());
-        this.addBtn.addEventListener('click', () => this.add());
+        this.operationBtn.addEventListener('click', () => this.changeOperationBtn(this.operationBtn));
+        this.addBtn.addEventListener('click', () => this.add(this.descriptionField.value, this.valueField.value));
     }
 
-    //function to operate the "plus" button
-    plus() {
-        console.log('Plus function');
-        this.plusBtn.classList.toggle('hide');
-        this.minusBtn.classList.toggle('hide');
-    }
+    changeOperationBtn(btn) {
+        if (btn.classList.contains("sign__plus")) {
+            btn.classList.remove("sign__plus")
+            btn.classList.add("sign__minus");
 
-    // function to operate the "minus" button
-    minus() {
-        console.log('Minus function');
-        this.minusBtn.classList.toggle('hide');
-        this.plusBtn.classList.toggle('hide');
+        } else if (btn.classList.contains("sign__minus")) {
+            btn.classList.add("sign__plus")
+            btn.classList.remove("sign__minus");
+        }
     }
 
     // Function to operate the "add" button.
-    add() {
-        if (this.minusBtn.className != 'sign sign__minus') {
-            console.log("sign Plus");
-            this.addIncomes();
-        }
-        // console.log("wartość = " + this.minusBtn.classList.value);
-        else if (this.minusBtn.className == 'sign sign__minus') {
-            console.log("sign minus");
-            this.addExpenses();
-        }
+    add(description, value) {
+        if (this.operationBtn.classList.contains("sign__plus")) {
+            this.list.insertAdjacentHTML('beforeend', this.createItem(
+                description,
+                "+" + value + "zł"
+            ));
 
-        this.opis();
+           let sum;
+           sum += value;
+            this.totalBudget.innerHTML = sum;
+        }
+        else if (this.operationBtn.classList.contains("sign__minus")) {
+            this.list.insertAdjacentHTML('beforeend', this.createItem(
+                description,
+                "-" + value + "zł"
+            ));
+        }
     }
 
-    //function to operate the "dexcription" button
-    opis() {
-        var description = this.descriptionField.value;
-        var value = this.valueField.value;
-
-        console.log(description + "  " + value);
+    // Create view single card 
+    createItem(postDesc, postValue) {
+        return `
+            <li class="incomes__list--item" >
+                <span data-postedDesc> ${postDesc} </span>
+                <span data-postedValue> ${postValue} </span>
+                    <div class="button">
+                        <button class="button button__edit" data-editBtn> <i class="far fa-edit"></i> </button>
+                        <button class="button button__trash" data-trashBtn> <i class="fas fa-trash-alt"></i> </button>
+                    </div>
+            </li>`;
     }
 
-
-    //function to operate the "value" button
-
-
-
-    //The function of adding incomes to the list on the right
-    addIncomes() {}
-
-    // The function of adding expenses to the list on the right
-    addExpenses() {}
 
 }
