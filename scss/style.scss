@@ -53,31 +53,54 @@ body {
                     background: #fff;
                     color: #333;
                     border: none;
-                    border-bottom: 3px solid #333;
+                    border-bottom: 3px solid var(--darker-color);
                     padding: 10px;
                     font-family: Montserrat;
                 }
 
                 .sign {
-                    border-radius: 50%;
                     background: var(--darker-color);
                     color: var(--light-color);
                     border: none;
                     padding: 5px 7px;
                     font-size: 23px;
                     cursor: pointer;
-                    // background: rgb(105, 193, 5);
+
+                    &__plus,
+                    &__minus {
+                        border-top-left-radius: 50%;
+                        border-bottom-left-radius: 50%;
+                        &::before {
+                            font-family: "Font Awesome 5 Free";
+                            font-weight: 900;
+                            font-size: 25px;
+                            z-index: 5;
+                            color: var(--light-color);
+                        }
+                    }
 
                     &__plus {
                         background: rgb(105, 193, 5);
+                        border: 1px solid rgb(105, 193, 5);
+
+                        &::before {
+                            content: "\f067";
+                        }
                     }
 
                     &__minus {
                         background: rgb(241, 2, 2);
+                        border: 1px solid rgb(241, 2, 2);
+                        &::before {
+                            content: "\f068";
+                        }
                     }
 
                     &__add {
+                        border-top-right-radius: 50%;
+                        border-bottom-right-radius: 50%;
                         background: #A68DAD;
+                        border: 1px solid #A68DAD;
                     }
                 }
             }

@@ -4,6 +4,7 @@ class BudgetApp {
         this.operationBtn = null;
         this.addBtn = null;
         this.totalBudget = 0;
+        this.id = 0;
 
         this.UiSelectors = {
             operationBtn: '[data-operationBtn]',
@@ -13,9 +14,11 @@ class BudgetApp {
             totalBudget: '[data-totalBudget]',
             postedDesc: '[data-postedDesc]',
             postedValue: '[data-postedValue]',
+
+            listIncomes: '[data-listIncomes]',
+            listExpenses: '[data-listExpenses]',
             editBtn: '[data-editBtn]',
             trashBtn: '[data-trashBtn]',
-            list: '[data-list]',
         };
     }
     initializeApp() {
@@ -25,20 +28,21 @@ class BudgetApp {
         this.descriptionField = document.querySelector(this.UiSelectors.descriptionField);
         this.postedDesc = document.querySelector(this.UiSelectors.postedDesc);
         this.postedValue = document.querySelector(this.UiSelectors.postedValue);
-
         this.valueField = document.querySelector(this.UiSelectors.valueField);
         this.totalBudget = document.querySelector(this.UiSelectors.totalBudget);
 
         //Right side
+        this.listIncomes = document.querySelector(this.UiSelectors.listIncomes);
+        this.listExpenses = document.querySelector(this.UiSelectors.listExpenses);
         this.editBtn = document.querySelector(this.UiSelectors.editBtn);
         this.trashBtn = document.querySelector(this.UiSelectors.trashBtn);
-        this.list = document.querySelector(this.UiSelectors.list);
+
         this.eventListeners();
     }
 
     eventListeners() {
         this.operationBtn.addEventListener('click', () => this.changeOperationBtn(this.operationBtn));
-        this.addBtn.addEventListener('click', () => this.add(this.descriptionField.value, this.valueField.value));
+        this.addBtn.addEventListener('click', () => this.add(this.id, this.descriptionField.value, this.valueField.value));
     }
 
     changeOperationBtn(btn) {
@@ -53,29 +57,33 @@ class BudgetApp {
     }
 
     // Function to operate the "add" button.
-    add(description, value) {
+    add(id, description, value) {
         if (this.operationBtn.classList.contains("sign__plus")) {
-            this.list.insertAdjacentHTML('beforeend', this.createItem(
+            this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
+                id,
                 description,
                 "+" + value + "zł"
-            ));
-
-           let sum;
-           sum += value;
-            this.totalBudget.innerHTML = sum;
-        }
-        else if (this.operationBtn.classList.contains("sign__minus")) {
-            this.list.insertAdjacentHTML('beforeend', this.createItem(
+            ) );
+            // let sum;
+            // sum += value;
+            // this.totalBudget.innerHTML = sum;
+        } else if (this.operationBtn.classList.contains("sign__minus")) {
+            this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
+                id,
                 description,
                 "-" + value + "zł"
             ));
         }
+        this.id++;  //?
+
+        console.log("id = "+ id);
+
     }
 
     // Create view single card 
-    createItem(postDesc, postValue) {
+    createItem(id, postDesc, postValue) {
         return `
-            <li class="incomes__list--item" >
+            <li class="incomes__list--item" id="${id}">
                 <span data-postedDesc> ${postDesc} </span>
                 <span data-postedValue> ${postValue} </span>
                     <div class="button">
@@ -84,6 +92,4 @@ class BudgetApp {
                     </div>
             </li>`;
     }
-
-
 }
