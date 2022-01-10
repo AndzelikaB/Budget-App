@@ -5,16 +5,20 @@ class BudgetApp {
         this.addBtn = null;
         this.totalBudget = 0;
         this.id = 0;
+        this.descriptionField = null;
+
+        this.valueField = 0;
 
         this.UiSelectors = {
             operationBtn: '[data-operationBtn]',
             addBtn: '[data-addBtn]',
             descriptionField: '[data-description]',
             valueField: '[data-value]',
+            announcement: '[data-announcement]',
+
             totalBudget: '[data-totalBudget]',
             postedDesc: '[data-postedDesc]',
             postedValue: '[data-postedValue]',
-
             listIncomes: '[data-listIncomes]',
             listExpenses: '[data-listExpenses]',
             editBtn: '[data-editBtn]',
@@ -30,6 +34,7 @@ class BudgetApp {
         this.postedValue = document.querySelector(this.UiSelectors.postedValue);
         this.valueField = document.querySelector(this.UiSelectors.valueField);
         this.totalBudget = document.querySelector(this.UiSelectors.totalBudget);
+        this.announcement = document.querySelector(this.UiSelectors.announcement);
 
         //Right side
         this.listIncomes = document.querySelector(this.UiSelectors.listIncomes);
@@ -58,27 +63,46 @@ class BudgetApp {
 
     // Function to operate the "add" button.
     add(id, description, value) {
-        if (this.operationBtn.classList.contains("sign__plus")) {
-            this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
-                id,
-                description,
-                "+" + value + "zł"
-            ) );
-            // let sum;
-            // sum += value;
-            // this.totalBudget.innerHTML = sum;
-        } else if (this.operationBtn.classList.contains("sign__minus")) {
-            this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
-                id,
-                description,
-                "-" + value + "zł"
-            ));
+        var num = parseInt(value);
+        var sum = new Number();
+
+        console.log("TYPEOF SUM: " + typeof(sum));
+
+        if(description != '' && num != ''){
+            console.log(typeof(num));
+                if (this.operationBtn.classList.contains("sign__plus")) {
+                    this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
+                        id,
+                        description,
+                        "+" + num + "zł"
+                    ));
+                    console.log("sum: " + sum);
+
+                    sum = sum + num;
+
+                } else if (this.operationBtn.classList.contains("sign__minus")) {
+                    this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
+                        id,
+                        description,
+                        "-" + num + "zł"
+                    ));
+
+                    sum = sum - num;
+
+                }
+
+            this.totalBudget.innerHTML = sum;
+
         }
-        this.id++;  //?
+        else{
+            this.announcement.innerHTML = "Fill in all fields"; //? == x += v
+        }
+        this.id++; 
 
-        console.log("id = "+ id);
-
+        console.log("sum: " + sum);
     }
+
+
 
     // Create view single card 
     createItem(id, postDesc, postValue) {
@@ -91,5 +115,9 @@ class BudgetApp {
                         <button class="button button__trash" data-trashBtn> <i class="fas fa-trash-alt"></i> </button>
                     </div>
             </li>`;
+    }
+
+    totalBudgetF(){
+        
     }
 }
