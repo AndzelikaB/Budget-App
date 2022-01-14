@@ -5,6 +5,7 @@ body {
     margin: 0px;
     --light-color: #DFD3C3;
     --darker-color: #C7B198;
+    font-size: 16px;
 }
 
 .budget {
@@ -29,7 +30,7 @@ body {
                 h1 {
                     color: var(--darker-color);
                     margin-left: 40px;
-                    font-size: 40px;
+                    font-size: 3rem;
                 }
             }
         }
@@ -130,6 +131,13 @@ body {
 
             .summary {
                 color: var(--light-color);
+                display: flex;
+                font-size: 1.7rem;
+
+                h1{
+                    color: #A68DAD;
+                    padding-left: 10px;
+                }
             }
         }
 
@@ -140,67 +148,63 @@ body {
             height: 50%;
             flex-direction: column;
 
-            .incomes {
-                font-size: 25px;
+            .incomes,
+            .expenses {
+                font-size: 1.2rem;
+                font-weight: 500;
+            }
 
-                &__title {
-                    color: rgb(105, 193, 5);
-                    font-size: 25px;
-                    font-weight: 500;
+            .incomes{
+                color: rgb(105, 193, 5);
+            }
+            .expenses {
+                    color: rgb(175, 61, 61);
+               
+            }
+
+            .list {
+                padding: 0px;
+                &__item {
+                    justify-content: space-between;
+                    display: flex;
+                    align-items: center;
+                    min-width: 250px;
+                    list-style: none;
+                    background: #fff;
+                    color: #333;
+                    text-align: center;
+                    padding: 5px 20px;
+                    box-shadow: 5px 5px 5px #333;
+                    margin: 20px 0;
+                    font-size: 1.5rem;
+
+                    .button {
+                        display: none;
+                    }
                 }
 
-                &__list {
-                    &--item {
-                        justify-content: space-between;
+                &:hover {
+                    .button {
                         display: flex;
                         align-items: center;
-                        min-width: 250px;
-                        list-style: none;
-                        background: #fff;
-                        color: #333;
-                        text-align: center;
-                        padding: 5px 20px;
-                        box-shadow: 5px 5px 5px #333;
-                        margin: 20px 0;
-
-                        .button {
-                            display: none;
-                        }
-                    }
-
-                    &:hover {
-                        .button {
-                            display: flex;
-                            align-items: center;
-                            background: #c7b198;
-                            padding: 3px;
-                            color: #ffefda;
+                        background: #c7b198;
+                        padding: 3px;
+                        color: #ffefda;
 
 
-                            &__trash,
-                            &__edit {
-                                border: none;
-                                background: transparent;
-                                font-size: 20px;
-                                padding: 0px 5px;
-                                cursor: pointer;
-                            }
+                        &__trash,
+                        &__edit {
+                            border: none;
+                            background: transparent;
+                            font-size: 20px;
+                            padding: 0px 5px;
+                            cursor: pointer;
                         }
                     }
                 }
             }
 
-            .expenses {
-                &__title {
-                    color: rgb(175, 61, 61);
-                    font-size: 25px;
-                    font-weight: 500;
-                }
-
-                &__list {
-                    &--item {}
-                }
-            }
+            
         }
     }
 }
