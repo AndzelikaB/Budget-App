@@ -56,15 +56,21 @@ body {
                     color: #333;
                     border: none;
                     border-bottom: 3px solid var(--darker-color);
-                    padding: 10px;
+                    padding: 17px;
                     font-family: Montserrat;
+
+                    &:focus-visible{
+                        outline: none;
+                            border-bottom: 3px solid #A68DAD;
+    
+                    }
                 }
 
                 .sign {
                     background: var(--darker-color);
                     color: var(--light-color);
                     border: none;
-                    padding: 5px 7px;
+                    padding:12px 14px;
                     font-size: 23px;
                     cursor: pointer;
 
@@ -72,6 +78,7 @@ body {
                     &__minus {
                         border-top-left-radius: 50%;
                         border-bottom-left-radius: 50%;
+
                         &::before {
                             font-family: "Font Awesome 5 Free";
                             font-weight: 900;
@@ -93,6 +100,7 @@ body {
                     &__minus {
                         background: rgb(241, 2, 2);
                         border: 1px solid rgb(241, 2, 2);
+
                         &::before {
                             content: "\f068";
                         }
@@ -107,8 +115,8 @@ body {
                 }
             }
 
-            .announcement{
-                &__text{
+            .announcement {
+                &__text {
                     color: red;
                 }
             }
@@ -134,7 +142,7 @@ body {
                 display: flex;
                 font-size: 1.7rem;
 
-                h1{
+                h1 {
                     color: #A68DAD;
                     padding-left: 10px;
                 }
@@ -154,16 +162,18 @@ body {
                 font-weight: 500;
             }
 
-            .incomes{
+            .incomes {
                 color: rgb(105, 193, 5);
             }
+
             .expenses {
-                    color: rgb(175, 61, 61);
-               
+                color: rgb(175, 61, 61);
+
             }
 
             .list {
                 padding: 0px;
+
                 &__item {
                     justify-content: space-between;
                     display: flex;
@@ -204,7 +214,7 @@ body {
                 }
             }
 
-            
+
         }
     }
 }

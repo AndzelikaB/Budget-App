@@ -9,6 +9,9 @@ class BudgetApp {
 
         this.valueField = 0;
         this.sum = 0;
+        // this.editBtn = null;
+        // this.trashBtn = null;
+
 
         this.UiSelectors = {
             operationBtn: '[data-operationBtn]',
@@ -48,9 +51,16 @@ class BudgetApp {
 
     eventListeners() {
         this.operationBtn.addEventListener('click', () => this.changeOperationBtn(this.operationBtn));
+
+        this.listExpenses.addEventListener('click', function(e){
+            this.clickF(e);
+        })
+
         this.addBtn.addEventListener('click', () => this.add(this.id, this.descriptionField.value, this.valueField.value));
-        this.editBtn.addEventListener('click', () => this.editF());
-        this.trashBtn.addEventListener('click', () => this.editF());
+        // this.editBtn.addEventListener('click', () => this.editF(this.id));
+        // this.trashBtn.addEventListener('click', () => this.trashF(this.id));
+
+        
     }
 
     changeOperationBtn(btn) {
@@ -70,6 +80,8 @@ class BudgetApp {
 
         if (description != '' && num != '') {
             if (this.operationBtn.classList.contains("sign__plus")) {
+                // '<h1> lololo </h1>';
+
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
                     id,
                     description,
@@ -88,10 +100,10 @@ class BudgetApp {
                 var numExpenses = num;
               this.totalBudgetF(numIncomes, numExpenses);
             }
+            this.id++;
         } else {
             this.announcement.innerHTML = "Fill in all fields";
         }
-        this.id++;
     }
 
     // Create view single card 
@@ -117,13 +129,17 @@ class BudgetApp {
         this.totalBudget.innerHTML = this.sum;
     }
 
+    clickF(e){
+        console.log("loloo" + e);
+
+    }
     // Editing the created row
-    editF(){
+    editF(id){
 
     }
 
     // Delete a row
-    trashF(){
-
+    trashF(id){
+        console.log("koszzykk");
     }
 }
