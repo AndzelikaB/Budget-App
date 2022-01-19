@@ -82,14 +82,15 @@ class BudgetApp {
     }
 
     clickF(target){
-        console.log("loloo" + target );
         console.log("loloo" + target.dataset );
-        if(target.dataset && target.dataset.editBtn !== undefined){
-            console.log("to")
-        }
-        else{
-            console.log("noo")
-        }
+        // if(target.dataset && target.dataset.editBtn !== undefined){
+        //     console.log("to");
+            this.editF(target);
+        // }
+        // else if(target.dataset && target.dataset.trashBtn !== undefined){
+        //     console.log("noo");
+        //     this.trashF(target);
+      //  }
         
 
         // if (target.dataset && target.dataset.editButton !== undefined) {
@@ -171,12 +172,17 @@ class BudgetApp {
 
 
     // Editing the created row
-    editF(id){
+    editF(target){
+        const lis = target.parentElement.parentElement;
+        console.log(lis);
 
+        return{element: lis}
     }
 
     // Delete a row
-    trashF(id){
+    trashF(target){
         console.log("koszzykk");
+        const lis = target.parentElement.parentElement;
+        console.log(lis);
     }
 }
