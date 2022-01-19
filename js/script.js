@@ -52,16 +52,56 @@ class BudgetApp {
     eventListeners() {
         this.operationBtn.addEventListener('click', () => this.changeOperationBtn(this.operationBtn));
 
-        this.listExpenses.addEventListener('click', function(e){
-            this.clickF(e);
-        })
+        //  this.listIncomes.addEventListener('click', () => this.clickF());
+
+       
+
+        // this.listIncomes.addEventListener('click', function(e) {
+        //     this.clickF(e);
+        // })   //czemu nie dziala?
 
         this.addBtn.addEventListener('click', () => this.add(this.id, this.descriptionField.value, this.valueField.value));
         // this.editBtn.addEventListener('click', () => this.editF(this.id));
         // this.trashBtn.addEventListener('click', () => this.trashF(this.id));
 
-        
+
+
+
+        this.listIncomes.addEventListener('click', (e) => {
+            // console.log(e);
+            // console.log("sdfa" + e.target );
+            this.clickF(e.target);
+        })
+
+
+        // this.listIncomes.addEventListener('click', function(e) {
+        //     console.log(e);
+        //     this.clickF(e.target);
+        // })   //czemu nie dziala?
+     
     }
+
+    clickF(target){
+        console.log("loloo" + target );
+        console.log("loloo" + target.dataset );
+        if(target.dataset && target.dataset.editBtn !== undefined){
+            console.log("to")
+        }
+        else{
+            console.log("noo")
+        }
+        
+
+        // if (target.dataset && target.dataset.editButton !== undefined) {
+        //     this.editItem(target);
+        //   }
+        //   if (target.dataset && target.dataset.deleteButton !== undefined) {
+        //     this.deleteItem(target);
+        //   }
+
+    }
+
+
 
     changeOperationBtn(btn) {
         if (btn.classList.contains("sign__plus")) {
@@ -129,10 +169,7 @@ class BudgetApp {
         this.totalBudget.innerHTML = this.sum;
     }
 
-    clickF(e){
-        console.log("loloo" + e);
 
-    }
     // Editing the created row
     editF(id){
 
