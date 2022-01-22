@@ -6,6 +6,8 @@ class BudgetApp {
         this.totalBudget = 0;
         this.id = 0;
         this.descriptionField = null;
+        var body = document.getElementsByTagName("body");
+        var bodycontent = body[0];
 
         this.valueField = 0;
         this.sum = 0;
@@ -25,8 +27,9 @@ class BudgetApp {
             postedValue: '[data-postedValue]',
             listIncomes: '[data-listIncomes]',
             listExpenses: '[data-listExpenses]',
+            lists: '[data-balance-list]',
             editBtn: '[data-editBtn]',
-            trashBtn: '[data-trashBtn]',
+            deleteBtn: '[data-deleteBtn]',
         };
     }
     initializeApp() {
@@ -39,40 +42,34 @@ class BudgetApp {
         this.valueField = document.querySelector(this.UiSelectors.valueField);
         this.totalBudget = document.querySelector(this.UiSelectors.totalBudget);
         this.announcement = document.querySelector(this.UiSelectors.announcement);
+        this.lists = document.querySelector(this.UiSelectors.lists);
 
         //Right side
         this.listIncomes = document.querySelector(this.UiSelectors.listIncomes);
         this.listExpenses = document.querySelector(this.UiSelectors.listExpenses);
         this.editBtn = document.querySelector(this.UiSelectors.editBtn);
-        this.trashBtn = document.querySelector(this.UiSelectors.trashBtn);
+        this.deleteBtn = document.querySelector(this.UiSelectors.deleteBtn);
+
+        console.log("ooo" + JSON.parse(localStorage.getItem('lists')));
 
         this.eventListeners();
+
     }
 
     eventListeners() {
         this.operationBtn.addEventListener('click', () => this.changeOperationBtn(this.operationBtn));
-
-        //  this.listIncomes.addEventListener('click', () => this.clickF());
-
-       
-
-        // this.listIncomes.addEventListener('click', function(e) {
-        //     this.clickF(e);
-        // })   //czemu nie dziala?
-
         this.addBtn.addEventListener('click', () => this.add(this.id, this.descriptionField.value, this.valueField.value));
-        // this.editBtn.addEventListener('click', () => this.editF(this.id));
-        // this.trashBtn.addEventListener('click', () => this.trashF(this.id));
 
-
-
-
-        this.listIncomes.addEventListener('click', (e) => {
-            // console.log(e);
-            // console.log("sdfa" + e.target );
+        this.lists.addEventListener('click', (e) => {
             this.clickF(e.target);
         })
 
+        document.addEventListener('keyup', (e) => {
+            console.log("pressed enter? " + e); ///?
+            if(e.code === 'Enter'){
+                this.add(this.id, this.descriptionField.value, this.valueField.value);
+            }
+        })
 
         // this.listIncomes.addEventListener('click', function(e) {
         //     console.log(e);
@@ -82,24 +79,25 @@ class BudgetApp {
     }
 
     clickF(target){
+
+        if(target.dataset && target.dataset.editBtn !== undefined){
+            this.editItem(target);
+        }
         console.log("loloo" + target.dataset );
-        // if(target.dataset && target.dataset.editBtn !== undefined){
-        //     console.log("to");
-            this.editF(target);
-        // }
-        // else if(target.dataset && target.dataset.trashBtn !== undefined){
-        //     console.log("noo");
-        //     this.trashF(target);
-      //  }
+        if(target.dataset && target.dataset.deleteBtn !== undefined){
+            // this.deleteItem()
+        }
+ 
         
 
-        // if (target.dataset && target.dataset.editButton !== undefined) {
-        //     this.editItem(target);
-        //   }
-        //   if (target.dataset && target.dataset.deleteButton !== undefined) {
-        //     this.deleteItem(target);
-        //   }
 
+    }
+
+    editItem(target){
+        const lis = target.parentElement.parentElement;
+        console.log(lis);
+
+        return{element: lis}
     }
 
 
@@ -145,6 +143,15 @@ class BudgetApp {
         } else {
             this.announcement.innerHTML = "Fill in all fields";
         }
+
+
+   
+       localStorage.setItem('lists', JSON.stringify(this.lists));
+
+    //    this.lists = localStorage.getItem('lists');
+
+        // this.lists = localStorage.getItem('lists');
+        // console.log('localStorage:' + localStorage.getItem('lists'));
     }
 
     // Create view single card 
@@ -155,7 +162,7 @@ class BudgetApp {
                 <span data-postedValue> ${postValue} </span>
                     <div class="button">
                         <button class="button button__edit" data-editBtn> <i class="far fa-edit"></i> </button>
-                        <button class="button button__trash" data-trashBtn> <i class="fas fa-trash-alt"></i> </button>
+                        <button class="button button__trash" data-deleteBtn> <i class="fas fa-trash-alt"></i> </button>
                     </div>
             </li>`;
     }
@@ -172,15 +179,10 @@ class BudgetApp {
 
 
     // Editing the created row
-    editF(target){
-        const lis = target.parentElement.parentElement;
-        console.log(lis);
-
-        return{element: lis}
-    }
+  
 
     // Delete a row
-    trashF(target){
+    deleteItem(target){
         console.log("koszzykk");
         const lis = target.parentElement.parentElement;
         console.log(lis);

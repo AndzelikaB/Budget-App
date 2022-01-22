@@ -32,37 +32,41 @@
 
                     <input class="input field_description" data-description type="text" placeholder="Description"
                         onfocus="this.value=''">
-                    <input class="input field_value" data-value type="number" step="0.01" placeholder="Value" onfocus="this.value=''">
+                    <input class="input field_value" data-value type="number" step="0.01" placeholder="Value"
+                        onfocus="this.value=''">
 
                     <button class="sign sign__add" data-addBtn> <i class="fas fa-check"></i> </button>
                 </div>
-                <div class="announcement" >
-                    <p class="announcement__text" data-announcement>  </p>
+                <div class="announcement">
+                    <p class="announcement__text" data-announcement> </p>
                 </div>
-                
+
             </div>
         </section>
 
         <section class="budget__calc">
             <div class="budget__calc--column1">
                 <div class="summary">
-                    <h2> Your total budget is:  <h1 data-totalBudget> </h1>
+                    <h2> Your total budget is: <h1 data-totalBudget> </h1>
                     </h2>
                 </div>
             </div>
 
             <div class="budget__calc--column2">
-                <div class="incomes">
-                    <h1 class="incomes__title"> Incomes </h1>
-                    <ul class="list incomes__list" data-listIncomes>
-                    </ul>
-                </div>
+                <article class="balance__list" data-balance-list>
 
-                <div class="expenses">
-                    <h1 class="expenses__title"> Expenses </h1>
-                    <ul class="list expenses__list" data-listExpenses>
-                    </ul>
-                </div>
+                    <div class="incomes">
+                        <h1 class="incomes__title"> Incomes </h1>
+                        <ul class="list incomes__list" data-listIncomes>
+                        </ul>
+                    </div>
+
+                    <div class="expenses">
+                        <h1 class="expenses__title"> Expenses </h1>
+                        <ul class="list expenses__list" data-listExpenses>
+                        </ul>
+                    </div>
+                </article>
 
             </div>
     </div>
