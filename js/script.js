@@ -1,5 +1,5 @@
 class BudgetApp {
-
+    balanceItems = [];
     constructor() {
         this.operationBtn = null;
         this.addBtn = null;
@@ -8,12 +8,8 @@ class BudgetApp {
         this.descriptionField = null;
         var body = document.getElementsByTagName("body");
         var bodycontent = body[0];
-
         this.valueField = 0;
         this.sum = 0;
-        // this.editBtn = null;
-        // this.trashBtn = null;
-
 
         this.UiSelectors = {
             operationBtn: '[data-operationBtn]',
@@ -50,9 +46,15 @@ class BudgetApp {
         this.editBtn = document.querySelector(this.UiSelectors.editBtn);
         this.deleteBtn = document.querySelector(this.UiSelectors.deleteBtn);
 
-        console.log("ooo" + JSON.parse(localStorage.getItem('lists')));
-
         this.eventListeners();
+        this.getLocalStorage();
+
+        // this.balanceItems.forEach(({ id, description, value}) => {
+        //       this.lists.insertAdjacentHTML(
+        //           'beforeend',
+        //           this.createItem(id, postDesc, postValue)
+        //         )
+        //   });
 
     }
 
@@ -79,7 +81,6 @@ class BudgetApp {
     }
 
     clickF(target){
-
         if(target.dataset && target.dataset.editBtn !== undefined){
             this.editItem(target);
         }
@@ -87,10 +88,6 @@ class BudgetApp {
         if(target.dataset && target.dataset.deleteBtn !== undefined){
             // this.deleteItem()
         }
- 
-        
-
-
     }
 
     editItem(target){
@@ -99,8 +96,6 @@ class BudgetApp {
 
         return{element: lis}
     }
-
-
 
     changeOperationBtn(btn) {
         if (btn.classList.contains("sign__plus")) {
@@ -115,8 +110,10 @@ class BudgetApp {
 
     // Function to operate the "add" button.
     add(id, description, value) {
-        var num = parseFloat(value);
+       
+        this.balanceItems.push(this.getInputsValues());
 
+        var num = parseFloat(value);
         if (description != '' && num != '') {
             if (this.operationBtn.classList.contains("sign__plus")) {
                 // '<h1> lololo </h1>';
@@ -144,14 +141,16 @@ class BudgetApp {
             this.announcement.innerHTML = "Fill in all fields";
         }
 
+        this.setlocalStorage();
+    }
 
-   
-       localStorage.setItem('lists', JSON.stringify(this.lists));
+    setlocalStorage(){
+        localStorage.setItem('listsItem', JSON.stringify(this.balanceItems));
+        console.log(this.balanceItems);
+    }
 
-    //    this.lists = localStorage.getItem('lists');
-
-        // this.lists = localStorage.getItem('lists');
-        // console.log('localStorage:' + localStorage.getItem('lists'));
+    getLocalStorage(){
+        console.log("Wynik get Storage" + JSON.parse(localStorage.getItem('listsItem')));
     }
 
     // Create view single card 
@@ -187,4 +186,20 @@ class BudgetApp {
         const lis = target.parentElement.parentElement;
         console.log(lis);
     }
+
+    getInputsValues() {
+        const description =  this.descriptionField.value;
+        const value = this.valueField.value;
+    
+        if (value > 0 && description) {
+          return {
+            description,
+            value,
+          };
+        }
+    
+        return null;
+    }
 }
+
+
