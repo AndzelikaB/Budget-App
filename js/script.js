@@ -1,5 +1,7 @@
 class BudgetApp {
     balanceItems = [];
+    numberOfItems = 0;
+
     constructor() {
         this.operationBtn = null;
         this.addBtn = null;
@@ -48,14 +50,27 @@ class BudgetApp {
 
         this.eventListeners();
         this.getLocalStorage();
+        console.log('lololo: ' + this.numberOfItems);
 
-        // this.balanceItems.forEach(({ id, description, value}) => {
-        //       this.lists.insertAdjacentHTML(
+        this.balanceItems.forEach(({
+            id,
+            description,
+            value
+        }) => {
+            this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(id, description, value));
+        });
+
+        // this.balanceItems.forEach(({ id, description, value, isPlus }) => {
+        //     isPlus
+        //       ? this.balanceListIncomes.insertAdjacentHTML(
         //           'beforeend',
-        //           this.createItem(id, postDesc, postValue)
+        //           this.createItem(id, isPlus, description, value)
         //         )
+        //       : this.balanceListExpenses.insertAdjacentHTML(
+        //           'beforeend',
+        //           this.createItem(id, isPlus, description, value)
+        //         );
         //   });
-
     }
 
     eventListeners() {
@@ -68,7 +83,7 @@ class BudgetApp {
 
         document.addEventListener('keyup', (e) => {
             console.log("pressed enter? " + e); ///?
-            if(e.code === 'Enter'){
+            if (e.code === 'Enter') {
                 this.add(this.id, this.descriptionField.value, this.valueField.value);
             }
         })
@@ -77,24 +92,26 @@ class BudgetApp {
         //     console.log(e);
         //     this.clickF(e.target);
         // })   //czemu nie dziala?
-     
+
     }
 
-    clickF(target){
-        if(target.dataset && target.dataset.editBtn !== undefined){
+    clickF(target) {
+        if (target.dataset && target.dataset.editBtn !== undefined) {
             this.editItem(target);
         }
-        console.log("loloo" + target.dataset );
-        if(target.dataset && target.dataset.deleteBtn !== undefined){
+        console.log("loloo" + target.dataset);
+        if (target.dataset && target.dataset.deleteBtn !== undefined) {
             // this.deleteItem()
         }
     }
 
-    editItem(target){
+    editItem(target) {
         const lis = target.parentElement.parentElement;
         console.log(lis);
 
-        return{element: lis}
+        return {
+            element: lis
+        }
     }
 
     changeOperationBtn(btn) {
@@ -110,7 +127,7 @@ class BudgetApp {
 
     // Function to operate the "add" button.
     add(id, description, value) {
-       
+
         this.balanceItems.push(this.getInputsValues());
 
         var num = parseFloat(value);
@@ -124,7 +141,7 @@ class BudgetApp {
                     "+" + num + "zł"
                 ));
                 var numIncomes = num;
-               this.totalBudgetF(numIncomes, numExpenses);
+                this.totalBudgetF(numIncomes, numExpenses);
 
             } else if (this.operationBtn.classList.contains("sign__minus")) {
                 this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
@@ -134,23 +151,49 @@ class BudgetApp {
                 ));
 
                 var numExpenses = num;
-              this.totalBudgetF(numIncomes, numExpenses);
+                this.totalBudgetF(numIncomes, numExpenses);
             }
             this.id++;
+            this.numberOfItems++;
         } else {
             this.announcement.innerHTML = "Fill in all fields";
         }
-
+      
         this.setlocalStorage();
     }
 
-    setlocalStorage(){
-        localStorage.setItem('listsItem', JSON.stringify(this.balanceItems));
-        console.log(this.balanceItems);
+    setlocalStorage() {
+        localStorage.setItem('balanceItems', JSON.stringify(this.balanceItems));
+        localStorage.setItem('numberOfItems', JSON.stringify(this.numberOfItems));
     }
 
-    getLocalStorage(){
-        console.log("Wynik get Storage" + JSON.parse(localStorage.getItem('listsItem')));
+    getLocalStorage() {
+        // var balanceItems = JSON.parse(localStorage.getItem('balanceItems'))
+        // this.numberOfItems = JSON.parse(localStorage.getItem('numberOfItems'));
+        // console.log("Lists Items: " + balanceItems + "Number Of Items: " + this.numberOfItems);
+
+
+        this.balanceItems = localStorage.getItem('balanceItems')
+
+        if(this.balanceItems){
+            this.balanceItems = JSON.parse(localStorage.getItem('balanceItems'))
+        }
+        else{
+            this.balanceItems = [];
+        }
+
+        if(this.numberOfItems){
+            this.numberOfItems = JSON.parse(localStorage.getItem('numberOfItems'))
+        }else{
+            this.numberOfItems = 0;
+        }
+
+        //     this.balanceItems = localStorage.getItem('balanceItems')
+        //     ? JSON.parse(localStorage.getItem('balanceItems'))
+        //     : [];
+        //   this.numberOfItems = localStorage.getItem('numberOfItems')
+        //     ? JSON.parse(localStorage.getItem('numberOfItems'))
+        //     : 0;
     }
 
     // Create view single card 
@@ -178,28 +221,26 @@ class BudgetApp {
 
 
     // Editing the created row
-  
+
 
     // Delete a row
-    deleteItem(target){
+    deleteItem(target) {
         console.log("koszzykk");
         const lis = target.parentElement.parentElement;
         console.log(lis);
     }
 
     getInputsValues() {
-        const description =  this.descriptionField.value;
+        const description = this.descriptionField.value;
         const value = this.valueField.value;
-    
+
         if (value > 0 && description) {
-          return {
-            description,
-            value,
-          };
+            return {
+                description,
+                value,
+            };
         }
-    
+
         return null;
     }
 }
-
-
