@@ -12,7 +12,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    height: auto;
     width: 100%;
 
     &__form {
@@ -153,7 +153,7 @@ body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 50%;
+            // height: 50%;
             flex-direction: column;
 
             .incomes,

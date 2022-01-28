@@ -50,14 +50,21 @@ class BudgetApp {
 
         this.eventListeners();
         this.getLocalStorage();
-        console.log('lololo: ' + this.numberOfItems);
+
+        // this.balanceItems.forEach(({
+        //     id,
+        //     description,
+        //     value
+        // }) => {
+        //     this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(id, description, value));
+        // });
 
         this.balanceItems.forEach(({
             id,
             description,
             value
         }) => {
-            this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(id, description, value));
+            this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(id, description, value));
         });
 
         // this.balanceItems.forEach(({ id, description, value, isPlus }) => {
@@ -86,7 +93,7 @@ class BudgetApp {
             if (e.code === 'Enter') {
                 this.add(this.id, this.descriptionField.value, this.valueField.value);
             }
-        })
+        }, {once : true})
 
         // this.listIncomes.addEventListener('click', function(e) {
         //     console.log(e);
@@ -133,8 +140,6 @@ class BudgetApp {
         var num = parseFloat(value);
         if (description != '' && num != '') {
             if (this.operationBtn.classList.contains("sign__plus")) {
-                // '<h1> lololo </h1>';
-
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
                     id,
                     description,
@@ -142,14 +147,12 @@ class BudgetApp {
                 ));
                 var numIncomes = num;
                 this.totalBudgetF(numIncomes, numExpenses);
-
-            } else if (this.operationBtn.classList.contains("sign__minus")) {
+            }else if (this.operationBtn.classList.contains("sign__minus")) {
                 this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
                     id,
                     description,
                     "-" + num + "zł"
                 ));
-
                 var numExpenses = num;
                 this.totalBudgetF(numIncomes, numExpenses);
             }
@@ -168,32 +171,31 @@ class BudgetApp {
     }
 
     getLocalStorage() {
-        // var balanceItems = JSON.parse(localStorage.getItem('balanceItems'))
+        // this.balanceItems = JSON.parse(localStorage.getItem('balanceItems'))
         // this.numberOfItems = JSON.parse(localStorage.getItem('numberOfItems'));
         // console.log("Lists Items: " + balanceItems + "Number Of Items: " + this.numberOfItems);
 
 
-        this.balanceItems = localStorage.getItem('balanceItems')
+        // this.balanceItems = localStorage.getItem('balanceItems')
+        // if(this.balanceItems){
+        //     this.balanceItems = JSON.parse(localStorage.getItem('balanceItems'))
+        // }
+        // else{
+        //     this.balanceItems = [];
+        // }
 
-        if(this.balanceItems){
-            this.balanceItems = JSON.parse(localStorage.getItem('balanceItems'))
-        }
-        else{
-            this.balanceItems = [];
-        }
+        // if(this.numberOfItems){
+        //     this.numberOfItems = JSON.parse(localStorage.getItem('numberOfItems'))
+        // }else{
+        //     this.numberOfItems = 0;
+        // }
 
-        if(this.numberOfItems){
-            this.numberOfItems = JSON.parse(localStorage.getItem('numberOfItems'))
-        }else{
-            this.numberOfItems = 0;
-        }
-
-        //     this.balanceItems = localStorage.getItem('balanceItems')
-        //     ? JSON.parse(localStorage.getItem('balanceItems'))
-        //     : [];
-        //   this.numberOfItems = localStorage.getItem('numberOfItems')
-        //     ? JSON.parse(localStorage.getItem('numberOfItems'))
-        //     : 0;
+            this.balanceItems = localStorage.getItem('balanceItems')
+            ? JSON.parse(localStorage.getItem('balanceItems'))
+            : [];
+            this.numberOfItems = localStorage.getItem('numberOfItems')
+            ? JSON.parse(localStorage.getItem('numberOfItems'))
+            : 0;
     }
 
     // Create view single card 
