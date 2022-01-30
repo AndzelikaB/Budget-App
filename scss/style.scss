@@ -19,6 +19,7 @@ body {
         color: rgb(255, 201, 101);
         width: 50%;
         background: var(--light-color);
+        min-height: 100vh;
 
         &--column1 {
             display: flex;
