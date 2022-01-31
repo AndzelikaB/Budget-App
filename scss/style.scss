@@ -224,3 +224,8 @@ body {
 .hide {
     display: none;
 }
+
+.disabled{
+    background: rgb(99, 98, 98) !important;
+    cursor: none !important;;
+}

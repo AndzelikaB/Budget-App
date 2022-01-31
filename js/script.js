@@ -44,7 +44,8 @@ class BudgetApp {
         this.deleteBtn = document.querySelector(this.UiSelectors.deleteBtn);
 
         this.eventListeners();
-        this.getLocalStorage();     
+        this.getLocalStorage();   
+       this.fields()  
 
     }
 
@@ -60,14 +61,12 @@ class BudgetApp {
 
         //Adding to list by click enter
         document.addEventListener('keyup', (e) => {
-            console.log("pressed enter? " + e);
             if (e.code === 'Enter') {
                 this.addItem(this.id, this.descriptionField.value, this.valueField.value);
             }
         }, {
             once: true
         })
-
     }
 
     // change sign of button 
@@ -82,37 +81,50 @@ class BudgetApp {
         }
     }
 
+    fields(){
+        this.descriptionField.onfocus = inputField;
+
+        function inputField(){
+            console.log("on focus"+  this.descriptionField);
+            this.addBtn.classList.remove("sign__minus");
+            // this.addBtn.disabled = true;
+            // this.descriptionField.value = 'Focus is here';
+        }
+        // if(this.descriptionField.onfocus){
+        //     console.log("on focus");
+        // }
+    }
     // Function to operate the "add" button.
     addItem(id, description, value) {
+        var price = parseFloat(value);
+        if (description != '' && price > 0) {
+            this.listOfItems.push(this.getInputsValues());
 
-        this.listOfItems.push(this.getInputsValues());
-
-        var num = parseFloat(value);
-        if (description != '' && num != '') {
             if (this.operationBtn.classList.contains("sign__plus")) {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
                     id,
                     description,
-                    "+" + num + "zł"
+                    "+" + price + "zł"
                 ));
-                var numIncomes = num;
-                this.totalBudgetF(numIncomes, numExpenses);
+                var priceIncomes = price;
+                this.totalBudgetF(priceIncomes, priceExpenses);
             } else if (this.operationBtn.classList.contains("sign__minus")) {
                 this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
                     id,
                     description,
-                    "-" + num + "zł"
+                    "-" + price + "zł"
                 ));
-                var numExpenses = num;
-                this.totalBudgetF(numIncomes, numExpenses);
+                var priceExpenses = price;
+                this.totalBudgetF(priceIncomes, priceExpenses);
             }
             this.id++;
             this.numberOfItems++;
+            this.setlocalStorage();
         } else {
+            this.addBtn.classList.add("sign__minus");
+            // this.addBtn.disabled = true;
             this.announcement.innerHTML = "Fill in all fields";
-        }
-
-        this.setlocalStorage();
+        }    
     }
 
     setlocalStorage() {
@@ -141,7 +153,7 @@ class BudgetApp {
     assignGetLocalStorage(){
         this.listOfItems.forEach(
             (item) => {
-                this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.description, item.value));
+                this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item?.id, item?.description, item?.value));
             });
        
         // this.listOfItems.forEach(({id, description, value}) => {
@@ -185,11 +197,11 @@ class BudgetApp {
     }
 
     // Total budget available
-    totalBudgetF(numIncomes, numExpenses) {
-        if (numIncomes) {
-            this.sum += numIncomes;
-        } else if (numExpenses) {
-            this.sum -= numExpenses;
+    totalBudgetF(priceIncomes, priceExpenses) {
+        if (priceIncomes) {
+            this.sum += priceIncomes;
+        } else if (priceExpenses) {
+            this.sum -= priceExpenses;
         }
         this.totalBudget.innerHTML = this.sum;
     }
