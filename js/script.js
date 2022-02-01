@@ -43,14 +43,9 @@ class BudgetApp {
         this.editBtn = document.querySelector(this.UiSelectors.editBtn);
         this.deleteBtn = document.querySelector(this.UiSelectors.deleteBtn);
 
-              
-
         this.eventListeners();
-
-        console.log("id" + this.id);
         this.getLocalStorage();
 
-        console.log("id" + this.id);
     //    this.fields()  
     }
 
@@ -152,6 +147,7 @@ class BudgetApp {
             console.log("Dlaczego tu wchodzisz?")
             this.numberOfItems = 0;
         }
+        
         this.assignGetLocalStorage();
     }
 
@@ -160,6 +156,7 @@ class BudgetApp {
         this.listOfItems.forEach(
             (item) => {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.description, item.value));
+                this.id = item.id + 1;  //wow
             });
        
         // this.listOfItems.forEach(({id, description, value}) => {
