@@ -1,12 +1,12 @@
 class BudgetApp {
     listOfItems = [];
-    numberOfItems = 0;
+    numberOfItems = 0;  //? czemu nie zeruje tego number of items? 
+    id = 0;
 
     constructor() {
         this.operationBtn = null;
         this.addBtn = null;
         this.totalBudget = 0;
-        this.id = 0;
         this.descriptionField = null;
         this.valueField = 0;
         this.sum = 0;
@@ -43,15 +43,19 @@ class BudgetApp {
         this.editBtn = document.querySelector(this.UiSelectors.editBtn);
         this.deleteBtn = document.querySelector(this.UiSelectors.deleteBtn);
 
-        this.eventListeners();
-        this.getLocalStorage();   
-       this.fields()  
+              
 
+        this.eventListeners();
+
+        console.log("id" + this.id);
+        this.getLocalStorage();
+
+        console.log("id" + this.id);
+    //    this.fields()  
     }
 
     eventListeners() {
         this.operationBtn.addEventListener('click', () => this.changeOperationBtn(this.operationBtn));
-
         this.addBtn.addEventListener('click', () => this.addItem(this.id, this.descriptionField.value, this.valueField.value));
 
         // Settings for Edit and Delete button in list Item
@@ -85,7 +89,7 @@ class BudgetApp {
         this.descriptionField.onfocus = inputField;
 
         function inputField(){
-            console.log("on focus"+  this.descriptionField);
+            console.log("on focus" +  this.descriptionField);
             this.addBtn.classList.remove("sign__minus");
             // this.addBtn.disabled = true;
             // this.descriptionField.value = 'Focus is here';
@@ -98,7 +102,7 @@ class BudgetApp {
     addItem(id, description, value) {
         var price = parseFloat(value);
         if (description != '' && price > 0) {
-            this.listOfItems.push(this.getInputsValues());
+            this.listOfItems.push(this.getInputsValues(id, description, value));
 
             if (this.operationBtn.classList.contains("sign__plus")) {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
@@ -124,7 +128,7 @@ class BudgetApp {
             this.addBtn.classList.add("sign__minus");
             // this.addBtn.disabled = true;
             this.announcement.innerHTML = "Fill in all fields";
-        }    
+        }
     }
 
     setlocalStorage() {
@@ -134,6 +138,8 @@ class BudgetApp {
 
     getLocalStorage() {
         this.listOfItems = localStorage.getItem('listOfItems')
+        this.numberOfItems = localStorage.getItem('listOfItems')
+
         if (this.listOfItems) {
             this.listOfItems = JSON.parse(localStorage.getItem('listOfItems'))
         } else {
@@ -143,9 +149,9 @@ class BudgetApp {
         if (this.numberOfItems) {
             this.numberOfItems = JSON.parse(localStorage.getItem('numberOfItems'))
         } else {
+            console.log("Dlaczego tu wchodzisz?")
             this.numberOfItems = 0;
         }
-
         this.assignGetLocalStorage();
     }
 
@@ -153,7 +159,7 @@ class BudgetApp {
     assignGetLocalStorage(){
         this.listOfItems.forEach(
             (item) => {
-                this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item?.id, item?.description, item?.value));
+                this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.description, item.value));
             });
        
         // this.listOfItems.forEach(({id, description, value}) => {
@@ -180,21 +186,22 @@ class BudgetApp {
             `;
     }
 
-    // <p class="item__value ${isPositive ? 'item__value--income' : 'item__value--expense'}" data-item-value>
-    // ${this.formatPrice(parseFloat(price), isPositive)} </p>
-
-    getInputsValues() {
-        const description = this.descriptionField.value;
-        const value = this.valueField.value;
-
-        if (value > 0 && description) {
-            return {
-                description,
-                value,
-            };
-        }
-        return null;
+    getInputsValues(id, description, value) {
+         return {
+            id,
+            description,
+            value,
+        };
     }
+
+
+
+
+
+
+
+
+
 
     // Total budget available
     totalBudgetF(priceIncomes, priceExpenses) {
@@ -232,7 +239,5 @@ class BudgetApp {
         const lis = target.parentElement.parentElement;
         console.log(lis);
     }
-
-   
 }
 
