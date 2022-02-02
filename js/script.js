@@ -153,20 +153,13 @@ class BudgetApp {
 
     // Display on screen an earlier set Items
     assignGetLocalStorage(){
+        console.log(this.listIncomes);
         this.listOfItems.forEach(
             (item) => {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.description, item.value));
                 this.id = item.id + 1;  //wow
             });
-       
-        // this.listOfItems.forEach(({id, description, value}) => {
-        //     console.log("btn class list jest: " + this.operationBtn.classList);
-        //     if (this.operationBtn.classList.contains("sign__plus")) {
-        //         this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(id, description, value));
-        //     } else {
-        //         this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(id, description, value));
-        //     }
-        // });
+            // JAK CIE PODZIELIĆ
     }
 
     // Create view single card 
