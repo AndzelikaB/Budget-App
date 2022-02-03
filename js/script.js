@@ -18,6 +18,7 @@ class BudgetApp {
             descriptionField: '[data-description]',
             valueField: '[data-value]',
             announcement: '[data-announcement]',
+            ul: '.list',
 
             totalBudget: '[data-totalBudget]',
             listIncomes: '[data-listIncomes]',
@@ -25,6 +26,7 @@ class BudgetApp {
             lists: '[data-balance-list]',
             editBtn: '[data-editBtn]',
             deleteBtn: '[data-deleteBtn]',
+            itemValue: '[data-item-value]'
         };
     }
     initializeApp() {
@@ -36,6 +38,8 @@ class BudgetApp {
         this.totalBudget = document.querySelector(this.UiSelectors.totalBudget);
         this.announcement = document.querySelector(this.UiSelectors.announcement);
         this.lists = document.querySelector(this.UiSelectors.lists);
+        this.ul = document.querySelector(this.UiSelectors.ul);
+        this.itemValue = document.querySelector(this.UiSelectors.itemValue);
 
         //Right side
         this.listIncomes = document.querySelector(this.UiSelectors.listIncomes);
@@ -51,7 +55,7 @@ class BudgetApp {
 
     eventListeners() {
         this.operationBtn.addEventListener('click', () => this.changeOperationBtn(this.operationBtn));
-        this.addBtn.addEventListener('click', () => this.addItem(this.id, this.descriptionField.value, this.valueField.value));
+        this.addBtn.addEventListener('click', () => this.addItem(this.id, this.operationBtn, this.descriptionField.value, this.valueField.value));
 
         // Settings for Edit and Delete button in list Item
         this.lists.addEventListener('click', (e) => {
@@ -73,7 +77,6 @@ class BudgetApp {
         if (btn.classList.contains("sign__plus")) {
             btn.classList.remove("sign__plus")
             btn.classList.add("sign__minus");
-
         } else if (btn.classList.contains("sign__minus")) {
             btn.classList.add("sign__plus")
             btn.classList.remove("sign__minus");
@@ -93,29 +96,34 @@ class BudgetApp {
         //     console.log("on focus");
         // }
     }
+
     // Function to operate the "add" button.
-    addItem(id, description, value) {
+    addItem(id, operationBtn, description, value) {
+        var opBtn = operationBtn.classList;
         var price = parseFloat(value);
         if (description != '' && price > 0) {
-            this.listOfItems.push(this.getInputsValues(id, description, value));
-
-            if (this.operationBtn.classList.contains("sign__plus")) {
+            if (opBtn.contains("sign__plus")) {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
                     id,
+                    opBtn,
                     description,
                     "+" + price + "zł"
                 ));
                 var priceIncomes = price;
                 this.totalBudgetF(priceIncomes, priceExpenses);
-            } else if (this.operationBtn.classList.contains("sign__minus")) {
+            } else if (opBtn.contains("sign__minus")) {
                 this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
                     id,
+                    opBtn,
                     description,
                     "-" + price + "zł"
                 ));
                 var priceExpenses = price;
                 this.totalBudgetF(priceIncomes, priceExpenses);
             }
+            this.listOfItems.push(this.getInputsValues(id, opBtn, description, value));
+            // this.ul.insertAdjacentHTML('beforeend', this.createItem(id, opBtn, description, price));
+
             this.id++;
             this.numberOfItems++;
             this.setlocalStorage();
@@ -144,7 +152,6 @@ class BudgetApp {
         if (this.numberOfItems) {
             this.numberOfItems = JSON.parse(localStorage.getItem('numberOfItems'))
         } else {
-            console.log("Dlaczego tu wchodzisz?")
             this.numberOfItems = 0;
         }
         
@@ -153,21 +160,26 @@ class BudgetApp {
 
     // Display on screen an earlier set Items
     assignGetLocalStorage(){
-        console.log(this.listIncomes);
         this.listOfItems.forEach(
             (item) => {
-                this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.description, item.value));
+                console.log("each opBtn   " + item.opBtn);
+                // var omg = item.opBtn;
+                // if(omg.classList.contains("sign__plus")){
+                //     this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtn, item.description, item.value));
+                // }else{
+                this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtn, item.description, item.value));
+                // }
                 this.id = item.id + 1;  //wow
             });
             // JAK CIE PODZIELIĆ
     }
 
     // Create view single card 
-    createItem(id, description, value) {
+    createItem(id, opBtn, description, value) {
         return `
             <li class="list__item" id="${id}">
                 <span> ${description} </span>
-                <span > ${value} </span>
+                <span class="${opBtn}" data-item-value> ${value} </span>
                     <div class="button">
                         <button class="button button__edit" data-editBtn> <i class="far fa-edit"></i> </button>
                         <button class="button button__trash" data-deleteBtn> <i class="fas fa-trash-alt"></i> </button>
@@ -176,19 +188,22 @@ class BudgetApp {
             `;
     }
 
-    getInputsValues(id, description, value) {
+    cowtedy(){
+        if(isPositive == true){
+            this.itemValue.classList.add('item__value--income')
+        }else{
+            this.itemValue.classList.add('item__value--expanse')
+        }
+    }
+
+    getInputsValues(id, opBtn, description, value) {
          return {
             id,
+            opBtn,
             description,
             value,
         };
     }
-
-
-
-
-
-
 
 
 
