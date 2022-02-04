@@ -162,14 +162,16 @@ class BudgetApp {
     assignGetLocalStorage(){
         this.listOfItems.forEach(
             (item) => {
-                console.log("each opBtn   " + item.opBtn);
-                // var omg = item.opBtn;
-                // if(omg.classList.contains("sign__plus")){
-                //     this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtn, item.description, item.value));
-                // }else{
-                this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtn, item.description, item.value));
-                // }
+                console.log("each opBtn   " + item.opBtnc);
+
+                if(item.opBtnc == "sign__plus"){
+                    this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnc, item.description, item.value))
+                }
+                else if(item.opBtnc == "sign__minus"){
+                    this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnc, item.description, item.value))
+                }
                 this.id = item.id + 1;  //wow
+
             });
             // JAK CIE PODZIELIĆ
     }
@@ -197,9 +199,10 @@ class BudgetApp {
     }
 
     getInputsValues(id, opBtn, description, value) {
+        const opBtnc = opBtn.value;
          return {
             id,
-            opBtn,
+            opBtnc,
             description,
             value,
         };
