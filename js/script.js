@@ -1,7 +1,8 @@
 class BudgetApp {
     listOfItems = [];
-    numberOfItems = 0;  //? czemu nie zeruje tego number of items? 
+    numberOfItems = 0; //? czemu nie zeruje tego number of items? 
     id = 0;
+    sum = 0;
 
     constructor() {
         this.operationBtn = null;
@@ -9,7 +10,7 @@ class BudgetApp {
         this.totalBudget = 0;
         this.descriptionField = null;
         this.valueField = 0;
-        this.sum = 0;
+        
         this.listIncomes = "";
 
         this.UiSelectors = {
@@ -18,15 +19,13 @@ class BudgetApp {
             descriptionField: '[data-description]',
             valueField: '[data-value]',
             announcement: '[data-announcement]',
-            ul: '.list',
 
             totalBudget: '[data-totalBudget]',
             listIncomes: '[data-listIncomes]',
             listExpenses: '[data-listExpenses]',
             lists: '[data-balance-list]',
             editBtn: '[data-editBtn]',
-            deleteBtn: '[data-deleteBtn]',
-            itemValue: '[data-item-value]'
+            deleteBtn: '[data-deleteBtn]'
         };
     }
     initializeApp() {
@@ -38,8 +37,6 @@ class BudgetApp {
         this.totalBudget = document.querySelector(this.UiSelectors.totalBudget);
         this.announcement = document.querySelector(this.UiSelectors.announcement);
         this.lists = document.querySelector(this.UiSelectors.lists);
-        this.ul = document.querySelector(this.UiSelectors.ul);
-        this.itemValue = document.querySelector(this.UiSelectors.itemValue);
 
         //Right side
         this.listIncomes = document.querySelector(this.UiSelectors.listIncomes);
@@ -50,7 +47,7 @@ class BudgetApp {
         this.eventListeners();
         this.getLocalStorage();
 
-    //    this.fields()  
+        //    this.fields()  
     }
 
     eventListeners() {
@@ -83,11 +80,11 @@ class BudgetApp {
         }
     }
 
-    fields(){
+    fields() {
         this.descriptionField.onfocus = inputField;
 
-        function inputField(){
-            console.log("on focus" +  this.descriptionField);
+        function inputField() {
+            console.log("on focus" + this.descriptionField);
             this.addBtn.classList.remove("sign__minus");
             // this.addBtn.disabled = true;
             // this.descriptionField.value = 'Focus is here';
@@ -100,7 +97,13 @@ class BudgetApp {
     // Function to operate the "add" button.
     addItem(id, operationBtn, description, value) {
         var opBtn = operationBtn.classList;
-        var price = parseFloat(value);
+        var price = parseFloat(value).toFixed(2);
+        // var xx = parseFloat(price)
+        // console.log(typeof(price));
+        // price.toFixed(2) ///WTF???
+        
+        console.log(typeof(price));
+        console.log(price);
         if (description != '' && price > 0) {
             if (opBtn.contains("sign__plus")) {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
@@ -109,8 +112,10 @@ class BudgetApp {
                     description,
                     "+" + price + "zł"
                 ));
-                var priceIncomes = price;
-                this.totalBudgetF(priceIncomes, priceExpenses);
+
+                console.log("atat: " + typeof(price))
+                var priceIncomes = parseFloat(price);
+                this.countBudget(priceIncomes, priceExpenses);
             } else if (opBtn.contains("sign__minus")) {
                 this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
                     id,
@@ -118,11 +123,10 @@ class BudgetApp {
                     description,
                     "-" + price + "zł"
                 ));
-                var priceExpenses = price;
-                this.totalBudgetF(priceIncomes, priceExpenses);
+                var priceExpenses = parseFloat(price);
+                this.countBudget(priceIncomes, priceExpenses);
             }
             this.listOfItems.push(this.getInputsValues(id, opBtn, description, value));
-            // this.ul.insertAdjacentHTML('beforeend', this.createItem(id, opBtn, description, price));
 
             this.id++;
             this.numberOfItems++;
@@ -132,6 +136,16 @@ class BudgetApp {
             // this.addBtn.disabled = true;
             this.announcement.innerHTML = "Fill in all fields";
         }
+    }
+
+    getInputsValues(id, opBtn, description, value) {
+        const opBtnCla = opBtn.value;
+        return {
+            id,
+            opBtnCla,
+            description,
+            value,
+        };
     }
 
     setlocalStorage() {
@@ -154,26 +168,21 @@ class BudgetApp {
         } else {
             this.numberOfItems = 0;
         }
-        
         this.assignGetLocalStorage();
     }
 
     // Display on screen an earlier set Items
-    assignGetLocalStorage(){
+    assignGetLocalStorage() {
         this.listOfItems.forEach(
             (item) => {
-                console.log("each opBtn   " + item.opBtnc);
-
-                if(item.opBtnc == "sign__plus"){
-                    this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnc, item.description, item.value))
+                if (item.opBtnCla == "sign__plus") {
+                    this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "+" + item.value + "zł"))
+                } else if (item.opBtnCla == "sign__minus") {
+                    this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "-" + item.value + "zł"))
                 }
-                else if(item.opBtnc == "sign__minus"){
-                    this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnc, item.description, item.value))
-                }
-                this.id = item.id + 1;  //wow
-
+                this.id = item.id + 1;
+                this.totalBudget.innerHTML = this.sum;
             });
-            // JAK CIE PODZIELIĆ
     }
 
     // Create view single card 
@@ -181,7 +190,7 @@ class BudgetApp {
         return `
             <li class="list__item" id="${id}">
                 <span> ${description} </span>
-                <span class="${opBtn}" data-item-value> ${value} </span>
+                <span class="${opBtn}"> ${value} </span>
                     <div class="button">
                         <button class="button button__edit" data-editBtn> <i class="far fa-edit"></i> </button>
                         <button class="button button__trash" data-deleteBtn> <i class="fas fa-trash-alt"></i> </button>
@@ -190,35 +199,20 @@ class BudgetApp {
             `;
     }
 
-    cowtedy(){
-        if(isPositive == true){
-            this.itemValue.classList.add('item__value--income')
-        }else{
-            this.itemValue.classList.add('item__value--expanse')
-        }
-    }
-
-    getInputsValues(id, opBtn, description, value) {
-        const opBtnc = opBtn.value;
-         return {
-            id,
-            opBtnc,
-            description,
-            value,
-        };
-    }
-
-
-
-
     // Total budget available
-    totalBudgetF(priceIncomes, priceExpenses) {
+    countBudget(priceIncomes, priceExpenses) {
+
+        console.log( typeof(priceIncomes))
+
         if (priceIncomes) {
             this.sum += priceIncomes;
         } else if (priceExpenses) {
             this.sum -= priceExpenses;
         }
-        this.totalBudget.innerHTML = this.sum;
+
+        var liczba = this.sum;
+        console.log("tooo: " + liczba);
+        this.totalBudget.innerHTML = liczba; 
     }
 
     clickF(target) {
@@ -248,4 +242,3 @@ class BudgetApp {
         console.log(lis);
     }
 }
-
