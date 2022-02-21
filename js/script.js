@@ -2,7 +2,7 @@ class BudgetApp {
     listOfItems = [];
     numberOfItems = 0; //? czemu nie zeruje tego number of items? 
     id = 0;
-    sum = 0;
+    
 
     constructor() {
         this.operationBtn = null;
@@ -10,7 +10,8 @@ class BudgetApp {
         this.totalBudget = 0;
         this.descriptionField = null;
         this.valueField = 0;
-        
+        this.sum = 0;
+
         this.listIncomes = "";
 
         this.UiSelectors = {
@@ -97,7 +98,7 @@ class BudgetApp {
     // Function to operate the "add" button.
     addItem(id, operationBtn, description, value) {
         var opBtn = operationBtn.classList;
-        var price = parseFloat(value).toFixed(2);
+        var price = parseFloat(value)
         // var xx = parseFloat(price)
         // console.log(typeof(price));
         // price.toFixed(2) ///WTF???
@@ -113,8 +114,14 @@ class BudgetApp {
                     "+" + price + "zł"
                 ));
 
-                console.log("atat: " + typeof(price))
-                var priceIncomes = parseFloat(price);
+                console.log("1116: " + typeof(price))
+                console.log(price);
+
+                var priceIncomes = price
+
+                console.log("1116: " + typeof(priceIncomes))
+                console.log(priceIncomes);
+
                 this.countBudget(priceIncomes, priceExpenses);
             } else if (opBtn.contains("sign__minus")) {
                 this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
@@ -123,7 +130,7 @@ class BudgetApp {
                     description,
                     "-" + price + "zł"
                 ));
-                var priceExpenses = parseFloat(price);
+                var priceExpenses = price;
                 this.countBudget(priceIncomes, priceExpenses);
             }
             this.listOfItems.push(this.getInputsValues(id, opBtn, description, value));
@@ -202,15 +209,19 @@ class BudgetApp {
     // Total budget available
     countBudget(priceIncomes, priceExpenses) {
 
-        console.log( typeof(priceIncomes))
+        console.log(typeof(priceIncomes))
+        console.log(this.sum);
+        console.log(typeof(this.sum))
 
         if (priceIncomes) {
             this.sum += priceIncomes;
         } else if (priceExpenses) {
-            this.sum -= priceExpenses;
+            console.log(this.sum = this.sum - priceExpenses);
+
+            this.sum = this.sum - priceExpenses
         }
 
-        var liczba = this.sum;
+        var liczba = Math.round(this.sum/100); 
         console.log("tooo: " + liczba);
         this.totalBudget.innerHTML = liczba; 
     }
