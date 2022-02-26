@@ -183,6 +183,7 @@ class BudgetApp {
                 this.id = item.id + 1;
 
                 var liczba = parseFloat(this.sum);
+                console.log(typeof(liczba))
                 this.totalBudget.innerHTML = liczba.toFixed(2);
             });
     }
