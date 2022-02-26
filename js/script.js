@@ -97,14 +97,16 @@ class BudgetApp {
 
     // Function to operate the "add" button.
     addItem(id, operationBtn, description, value) {
+        console.log(value);
+        console.log(typeof(value));
         var opBtn = operationBtn.classList;
-        var price = parseFloat(value)
-        // var xx = parseFloat(price)
+        var price = parseFloat(value);  //zmieniam typ ze string na number
+
+         // var xx = parseFloat(price)
         // console.log(typeof(price));
-        // price.toFixed(2) ///WTF???
-        
-        console.log(typeof(price));
-        console.log(price);
+       // price.toFixed(2) ///WTF???
+
+
         if (description != '' && price > 0) {
             if (opBtn.contains("sign__plus")) {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
@@ -113,16 +115,12 @@ class BudgetApp {
                     description,
                     "+" + price + "zł"
                 ));
+                var priceIncomes = price;   
 
-                console.log("1116: " + typeof(price))
-                console.log(price);
-
-                var priceIncomes = price
-
-                console.log("1116: " + typeof(priceIncomes))
-                console.log(priceIncomes);
 
                 this.countBudget(priceIncomes, priceExpenses);
+
+                
             } else if (opBtn.contains("sign__minus")) {
                 this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
                     id,
@@ -208,22 +206,13 @@ class BudgetApp {
 
     // Total budget available
     countBudget(priceIncomes, priceExpenses) {
-
-        console.log(typeof(priceIncomes))
-        console.log(this.sum);
-        console.log(typeof(this.sum))
-
         if (priceIncomes) {
-            this.sum += priceIncomes;
+            this.sum = this.sum + priceIncomes;
         } else if (priceExpenses) {
-            console.log(this.sum = this.sum - priceExpenses);
-
             this.sum = this.sum - priceExpenses
         }
-
-        var liczba = Math.round(this.sum/100); 
-        console.log("tooo: " + liczba);
-        this.totalBudget.innerHTML = liczba; 
+        var liczba = this.sum;
+        this.totalBudget.innerHTML = liczba.toFixed(2);     // jak to zapisać żeby po odświeżeniu było widoczne? 
     }
 
     clickF(target) {
