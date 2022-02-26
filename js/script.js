@@ -100,13 +100,8 @@ class BudgetApp {
         console.log(value);
         console.log(typeof(value));
         var opBtn = operationBtn.classList;
-        var price = parseFloat(value);  //zmieniam typ ze string na number
-
-         // var xx = parseFloat(price)
-        // console.log(typeof(price));
-       // price.toFixed(2) ///WTF???
-
-
+        var price = parseFloat(value);
+        
         if (description != '' && price > 0) {
             if (opBtn.contains("sign__plus")) {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
@@ -116,8 +111,6 @@ class BudgetApp {
                     "+" + price + "zł"
                 ));
                 var priceIncomes = price;   
-
-
                 this.countBudget(priceIncomes, priceExpenses);
 
                 
@@ -182,11 +175,15 @@ class BudgetApp {
             (item) => {
                 if (item.opBtnCla == "sign__plus") {
                     this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "+" + item.value + "zł"))
+                    this.sum += item.value;
                 } else if (item.opBtnCla == "sign__minus") {
                     this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "-" + item.value + "zł"))
+                    this.sum -= item.value;
                 }
                 this.id = item.id + 1;
-                this.totalBudget.innerHTML = this.sum;
+
+                var liczba = parseFloat(this.sum);
+                this.totalBudget.innerHTML = liczba.toFixed(2);
             });
     }
 
