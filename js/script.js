@@ -175,7 +175,7 @@ class BudgetApp {
             (item) => {
                 if (item.opBtnCla == "sign__plus") {
                     this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "+" + item.value + "zł"))
-                    this.sum += item.value;
+                    this.sum += parseFloat(item.value);
                 } else if (item.opBtnCla == "sign__minus") {
                     this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "-" + item.value + "zł"))
                     this.sum -= item.value;
@@ -184,9 +184,11 @@ class BudgetApp {
 
                 var liczba = parseFloat(this.sum);
                 console.log(typeof(liczba))
+                console.log(liczba);
                 this.totalBudget.innerHTML = liczba.toFixed(2);
             });
     }
+    
 
     // Create view single card 
     createItem(id, opBtn, description, value) {
