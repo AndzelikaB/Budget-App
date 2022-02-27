@@ -178,17 +178,16 @@ class BudgetApp {
                     this.sum += parseFloat(item.value);
                 } else if (item.opBtnCla == "sign__minus") {
                     this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "-" + item.value + "zł"))
-                    this.sum -= item.value;
+                    this.sum -= parseFloat(item.value);
                 }
                 this.id = item.id + 1;
 
-                var liczba = parseFloat(this.sum);
-                console.log(typeof(liczba))
-                console.log(liczba);
-                this.totalBudget.innerHTML = liczba.toFixed(2);
+             
+             
+                this.totalBudget.innerHTML = this.sum.toFixed(2) + "zł";
             });
     }
-    
+
     
 
     // Create view single card 
