@@ -56,8 +56,6 @@ class BudgetApp {
 
         // Settings for Edit and Delete button in list Item
         this.lists.addEventListener('click', (e) => {
-            console.log(e)
-            // console.log(e.target)
             this.clickF(e.target);
         })
 
@@ -193,8 +191,8 @@ class BudgetApp {
                 <span> ${description} </span>
                 <span class="${opBtn}"> ${value} </span>
                     <div class="button">
-                        <button class="button button__edit" data-editBtn> <i class="far fa-edit"></i> </button>
-                        <button class="button button__trash" data-deleteBtn> <i class="fas fa-trash-alt"></i> </button>
+                        <button class="button button__edit" data-editBtn></button>
+                        <button class="button button__trash" data-deleteBtn></button>
                     </div>
             </li>
             `;
@@ -231,6 +229,11 @@ class BudgetApp {
         // return {
         //     element: lis
         // }
+
+        console.log("id:  " + this.id);
+        this.descriptionField.value = "Xxxx";
+        this.valueField.value = "00"
+        
     }
 
     // Delete a row

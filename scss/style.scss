@@ -6,6 +6,8 @@ body {
     margin: 0px;
     --light-color: #DFD3C3;
     --darker-color: #C7B198;
+    --accept-color:rgb(105, 193, 5);
+    --error-color: rgb(241, 2, 2);
     font-size: 16px;
 }
 
@@ -93,8 +95,8 @@ body {
                     }
 
                     &__plus {
-                        background: rgb(105, 193, 5);
-                        border: 1px solid rgb(105, 193, 5);
+                        background: var(--accept-color);
+                        border: 1px solid var(--accept-color);
 
                         &::before {
                             content: "\f067";
@@ -102,8 +104,8 @@ body {
                     }
 
                     &__minus {
-                        background: rgb(241, 2, 2);
-                        border: 1px solid rgb(241, 2, 2);
+                        background: var(--error-color);
+                        border: 1px solid  var(--error-color);
 
                         &::before {
                             content: "\f068";
@@ -122,7 +124,7 @@ body {
 
             .announcement {
                 &__text {
-                    color: red;
+                    color:  var(--error-color);
                 }
             }
         }
@@ -169,11 +171,11 @@ body {
             }
 
             .incomes {
-                color: rgb(74, 138, 0);
+                color:  var(--accept-color);
             }
 
             .expenses {
-                color: rgb(175, 61, 61);
+                color:  var(--error-color);
 
             }
 
@@ -216,18 +218,36 @@ body {
                                 padding: 0px 5px;
                                 cursor: pointer;
                             }
+
+                            &__edit {
+                                &::before{
+                                    font-family: "Font Awesome 5 Free";
+                                    font-weight: 900;
+                                    content: "\f044"; 
+                                }
+
+                                &:focus{
+                                    color: var(--accept-color);
+                                }
+                            }
+
+                            &__trash {
+                                &::before{
+                                    font-family: "Font Awesome 5 Free";
+                                    font-weight: 900;
+                                    content: "\f1f8";
+                                }
+                                &:focus{
+                                    color: var(--error-color);
+                                }
+                            }
                         }
                     }
                 }
-
-
             }
-
-
         }
     }
 }
-
 
 .hide {
     display: none;
