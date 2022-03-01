@@ -2,7 +2,6 @@ class BudgetApp {
     listOfItems = [];
     numberOfItems = 0; //? czemu nie zeruje tego number of items? 
     id = 0;
-    
 
     constructor() {
         this.operationBtn = null;
@@ -57,6 +56,8 @@ class BudgetApp {
 
         // Settings for Edit and Delete button in list Item
         this.lists.addEventListener('click', (e) => {
+            console.log(e)
+            // console.log(e.target)
             this.clickF(e.target);
         })
 
@@ -181,15 +182,10 @@ class BudgetApp {
                     this.sum -= parseFloat(item.value);
                 }
                 this.id = item.id + 1;
-
-             
-             
                 this.totalBudget.innerHTML = this.sum.toFixed(2) + "zł";
             });
     }
-
     
-
     // Create view single card 
     createItem(id, opBtn, description, value) {
         return `
@@ -212,33 +208,35 @@ class BudgetApp {
             this.sum = this.sum - priceExpenses
         }
         var liczba = this.sum;
-        this.totalBudget.innerHTML = liczba.toFixed(2);     // jak to zapisać żeby po odświeżeniu było widoczne? 
+        this.totalBudget.innerHTML = liczba.toFixed(2);
     }
 
     clickF(target) {
-        if (target.dataset && target.dataset.editBtn !== undefined) {
+        if (target.dataset && target.dataset.editbtn !== undefined) {
             this.editItem(target);
         }
-        console.log("loloo" + target.dataset);
-        if (target.dataset && target.dataset.deleteBtn !== undefined) {
-            // this.deleteItem()
+
+        else if (target.dataset && target.dataset.deletebtn !== undefined) {
+            this.deleteItem(target);
         }
     }
 
     // Editing the created row
     editItem(target) {
-        const lis = target.parentElement.parentElement;
-        console.log(lis);
+        console.log("Edit Item");
 
-        return {
-            element: lis
-        }
+        // const lis = target.parentElement.parentElement;
+        // console.log(lis);
+
+        // return {
+        //     element: lis
+        // }
     }
 
     // Delete a row
     deleteItem(target) {
-        console.log("koszzykk");
-        const lis = target.parentElement.parentElement;
-        console.log(lis);
+        console.log("Delete Item");
+        // const lis = target.parentElement.parentElement;
+        // console.log(lis);
     }
 }

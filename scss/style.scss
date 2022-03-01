@@ -62,10 +62,10 @@ body {
                     font-family: Montserrat;
                     margin: 5px;
 
-                    &:focus-visible{
+                    &:focus-visible {
                         outline: none;
-                            border-bottom: 3px solid #A68DAD;
-    
+                        border-bottom: 3px solid #A68DAD;
+
                     }
                 }
 
@@ -73,7 +73,7 @@ body {
                     background: var(--darker-color);
                     color: var(--light-color);
                     border: none;
-                    padding:12px 14px;
+                    padding: 12px 14px;
                     font-size: 23px;
                     cursor: pointer;
 
@@ -198,27 +198,29 @@ body {
                     .button {
                         display: none;
                     }
-                }
 
-                &:hover {
-                    .button {
-                        display: flex;
-                        align-items: center;
-                        background: #c7b198;
-                        padding: 3px;
-                        color: #ffefda;
+                    &:hover {
+                        .button {
+                            display: flex;
+                            align-items: center;
+                            background: #c7b198;
+                            padding: 3px;
+                            color: #ffefda;
 
 
-                        &__trash,
-                        &__edit {
-                            border: none;
-                            background: transparent;
-                            font-size: 20px;
-                            padding: 0px 5px;
-                            cursor: pointer;
+                            &__trash,
+                            &__edit {
+                                border: none;
+                                background: transparent;
+                                font-size: 20px;
+                                padding: 0px 5px;
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
+
+
             }
 
 
@@ -231,7 +233,8 @@ body {
     display: none;
 }
 
-.disabled{
+.disabled {
     background: rgb(99, 98, 98) !important;
-    cursor: none !important;;
+    cursor: none !important;
+    ;
 }
