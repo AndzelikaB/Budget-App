@@ -57,7 +57,6 @@ class BudgetApp {
 
         // Settings for Edit and Delete button in list Item
         this.lists.addEventListener('click', (e) => {
-            console.log(e);
             this.clickF(e.target);
         })
 
@@ -212,6 +211,8 @@ class BudgetApp {
     }
 
     clickF(target) {
+        console.log(this.listOfItems);
+
         if (target.dataset && target.dataset.editbtn !== undefined) {
             this.editItem(target);
         }
@@ -240,22 +241,28 @@ class BudgetApp {
 
     // Delete a row
     deleteItem(target) {
-        console.log("Delete Item");
+        // console.log("Delete Item");
+        
+        // console.log(target.parentElement.parentElement);
+        // console.log(target.parentElement.parentElement.id)
 
-        console.log(target)
         const lis = target.parentElement.parentElement.id;
-        console.log(lis);
+        const lol = parseInt(lis);
 
         var kopiatabablicy = this.listOfItems;
-        console.log(kopiatabablicy);
-        kopiatabablicy = kopiatabablicy.filter(item => {
-            console.log(item.id);
-            console.log(lis);
+
+        kopiatabablicy.splice(lol, 1);
+
+        // console.log(kopiatabablicy);
+
+        kopiatabablicy.filter(item => {
+            console.log(item.id + typeof(item.id));
+            console.log(lis + typeof(lis));
+            console.log(item.id !== lol)
            return item.id !== lis
         });
-        // kopiatabablicy.splice(lis, 1);
 
-        console.log(kopiatabablicy);
+
 
         // var el = document.getElementById('lis');
 
