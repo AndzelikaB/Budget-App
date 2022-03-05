@@ -12,7 +12,6 @@ class BudgetApp {
         this.sum = 0;
 
         this.listIncomes = "";
-
         this.UiSelectors = {
             operationBtn: '[data-operationBtn]',
             addBtn: '[data-addBtn]',
@@ -25,7 +24,8 @@ class BudgetApp {
             listExpenses: '[data-listExpenses]',
             lists: '[data-balance-list]',
             editBtn: '[data-editBtn]',
-            deleteBtn: '[data-deleteBtn]'
+            deleteBtn: '[data-deleteBtn]',
+            item: '[data-list__item]'
         };
     }
     initializeApp() {
@@ -43,6 +43,7 @@ class BudgetApp {
         this.listExpenses = document.querySelector(this.UiSelectors.listExpenses);
         this.editBtn = document.querySelector(this.UiSelectors.editBtn);
         this.deleteBtn = document.querySelector(this.UiSelectors.deleteBtn);
+        this.item = document.querySelector(this.UiSelectors.item);
 
         this.eventListeners();
         this.getLocalStorage();
@@ -56,6 +57,7 @@ class BudgetApp {
 
         // Settings for Edit and Delete button in list Item
         this.lists.addEventListener('click', (e) => {
+            console.log(e);
             this.clickF(e.target);
         })
 
@@ -187,13 +189,13 @@ class BudgetApp {
     // Create view single card 
     createItem(id, opBtn, description, value) {
         return `
-            <li class="list__item" id="${id}">
+            <li class="list__item" data-list__item id="${id}">
                 <span> ${description} </span>
                 <span class="${opBtn}"> ${value} </span>
-                    <div class="button">
+                 <div class="button">
                         <button class="button button__edit" data-editBtn></button>
                         <button class="button button__trash" data-deleteBtn></button>
-                    </div>
+                </div>
             </li>
             `;
     }
@@ -239,7 +241,24 @@ class BudgetApp {
     // Delete a row
     deleteItem(target) {
         console.log("Delete Item");
-        // const lis = target.parentElement.parentElement;
-        // console.log(lis);
+
+        console.log(target)
+        const lis = target.parentElement.parentElement.id;
+        console.log(lis);
+
+        var kopiatabablicy = this.listOfItems;
+        console.log(kopiatabablicy);
+        kopiatabablicy = kopiatabablicy.filter(item => {
+            console.log(item.id);
+            console.log(lis);
+           return item.id !== lis
+        });
+        // kopiatabablicy.splice(lis, 1);
+
+        console.log(kopiatabablicy);
+
+        // var el = document.getElementById('lis');
+
+        // el.remove();
     }
 }
