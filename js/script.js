@@ -251,21 +251,34 @@ class BudgetApp {
 
         var kopiatabablicy = this.listOfItems;
 
-        kopiatabablicy.splice(lol, 1);
+        // kopiatabablicy.splice(lol, 1);
 
         // console.log(kopiatabablicy);
 
-        kopiatabablicy.filter(item => {
-            console.log(item.id + typeof(item.id));
-            console.log(lis + typeof(lis));
+        var filteredtab =  kopiatabablicy.filter(item => {
+            // console.log(item.id + typeof(item.id));
+            // console.log(lis + typeof(lol));
             console.log(item.id !== lol)
            return item.id !== lis
         });
-
-
+        console.log(filteredtab);
 
         // var el = document.getElementById('lis');
 
         // el.remove();
+
+        // function compare(item){
+        //    return(item.id !== lol);
+        // }
+
+        // var filter = kopiatabablicy.filter(compare);
+
+        // console.log(filter);
+
+
+        // function isBigEnough(element, index, array) {
+        //     return (element >= 10);
+        //   }
+        //   filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
     }
 }
