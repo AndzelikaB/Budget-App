@@ -211,7 +211,6 @@ class BudgetApp {
     }
 
     clickF(target) {
-        console.log(this.listOfItems);
 
         if (target.dataset && target.dataset.editbtn !== undefined) {
             this.editItem(target);
@@ -241,44 +240,34 @@ class BudgetApp {
 
     // Delete a row
     deleteItem(target) {
-        // console.log("Delete Item");
-        
-        // console.log(target.parentElement.parentElement);
-        // console.log(target.parentElement.parentElement.id)
-
-        const lis = target.parentElement.parentElement.id;
-        const lol = parseInt(lis);
-
-        var kopiatabablicy = this.listOfItems;
+        const elementId = parseInt(target.parentElement.parentElement.id);    
 
         // kopiatabablicy.splice(lol, 1);
 
-        // console.log(kopiatabablicy);
 
-        var filteredtab =  kopiatabablicy.filter(item => {
-            // console.log(item.id + typeof(item.id));
-            // console.log(lis + typeof(lol));
-            console.log(item.id !== lol)
-           return item.id !== lis
-        });
-        console.log(filteredtab);
+        // var filteredtab =  kopiatabablicy.filter(item => {
+        //     // console.log(item.id + typeof(item.id));
+        //     // console.log(lis + typeof(lol));
+        //     console.log(item.id !== lol)
+        //    return item.id !== lis
+        // });
+        // console.log(filteredtab);
 
         // var el = document.getElementById('lis');
 
         // el.remove();
 
-        // function compare(item){
-        //    return(item.id !== lol);
-        // }
-
-        // var filter = kopiatabablicy.filter(compare);
-
-        // console.log(filter);
+        // var kopiatabablicy = this.listOfItems;
 
 
-        // function isBigEnough(element, index, array) {
-        //     return (element >= 10);
-        //   }
-        //   filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+        function compare(item){
+            return(item.id !== elementId);
+         }
+ 
+       this.listOfItems = this.listOfItems.filter(compare);
+ 
+         console.log(this.listOfItems);
+
+
     }
 }
