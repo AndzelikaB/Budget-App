@@ -171,6 +171,8 @@ class BudgetApp {
 
     // Display on screen an earlier set Items
     assignGetLocalStorage() {
+
+        console.log(this.listOfItems)
         this.listOfItems.forEach(
             (item) => {
                 if (item.opBtnCla == "sign__plus") {
@@ -260,13 +262,14 @@ class BudgetApp {
         // var kopiatabablicy = this.listOfItems;
 
 
-        function compare(item){
+        this.listOfItems = this.listOfItems.filter((item) => {
             return(item.id !== elementId);
-         }
- 
-       this.listOfItems = this.listOfItems.filter(compare);
- 
+        });
+    
          console.log(this.listOfItems);
+
+         this.setlocalStorage();
+        this.getLocalStorage();
 
 
     }
