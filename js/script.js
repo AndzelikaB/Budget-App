@@ -171,7 +171,6 @@ class BudgetApp {
 
     // Display on screen an earlier set Items
     assignGetLocalStorage() {
-
         console.log(this.listOfItems)
         this.listOfItems.forEach(
             (item) => {
