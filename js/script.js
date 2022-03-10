@@ -97,8 +97,6 @@ class BudgetApp {
 
     // Function to operate the "add" button.
     addItem(id, operationBtn, description, value) {
-        console.log(value);
-        console.log(typeof(value));
         var opBtn = operationBtn.classList;
         var price = parseFloat(value);
         
@@ -171,7 +169,7 @@ class BudgetApp {
 
     // Display on screen an earlier set Items
     assignGetLocalStorage() {
-        console.log(this.listOfItems)
+        console.log(this.listOfItems);
         this.listOfItems.forEach(
             (item) => {
                 if (item.opBtnCla == "sign__plus") {
@@ -267,9 +265,8 @@ class BudgetApp {
     
          console.log(this.listOfItems);
 
-         this.setlocalStorage();
-        this.getLocalStorage();
-
-
+        //co z numberofitems??
+        this.setlocalStorage()
+        this.assignGetLocalStorage();
     }
 }
