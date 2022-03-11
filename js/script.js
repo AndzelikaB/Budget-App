@@ -99,7 +99,7 @@ class BudgetApp {
     addItem(id, operationBtn, description, value) {
         var opBtn = operationBtn.classList;
         var price = parseFloat(value);
-        
+
         if (description != '' && price > 0) {
             if (opBtn.contains("sign__plus")) {
                 this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(
@@ -108,10 +108,10 @@ class BudgetApp {
                     description,
                     "+" + price + "zł"
                 ));
-                var priceIncomes = price;   
+                var priceIncomes = price;
                 this.countBudget(priceIncomes, priceExpenses);
 
-                
+
             } else if (opBtn.contains("sign__minus")) {
                 this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(
                     id,
@@ -151,7 +151,7 @@ class BudgetApp {
 
     getLocalStorage() {
         this.listOfItems = localStorage.getItem('listOfItems')
-        this.numberOfItems = localStorage.getItem('listOfItems')
+        this.numberOfItems = localStorage.getItem('numberOfItems')
 
         if (this.listOfItems) {
             this.listOfItems = JSON.parse(localStorage.getItem('listOfItems'))
@@ -171,29 +171,18 @@ class BudgetApp {
     assignGetLocalStorage(elementId, elementItem) {
         this.listOfItems.forEach(
             (item) => {
-                // console.log(this.listOfItems);
-
-                if(item.id == elementId){
-
-                
-
-                if (item.opBtnCla == "sign__plus" ) {
+                if (item.opBtnCla == "sign__plus") {
                     this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "+" + item.value + "zł"))
                     this.sum += parseFloat(item.value);
                 } else if (item.opBtnCla == "sign__minus") {
                     this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "-" + item.value + "zł"))
                     this.sum -= parseFloat(item.value);
                 }
-            }
-            else{
-                elementItem.remove();
-            }
                 this.id = item.id + 1;
                 this.totalBudget.innerHTML = this.sum.toFixed(2) + "zł";
-
             });
     }
-    
+
     // Create view single card 
     createItem(id, opBtn, description, value) {
         return `
@@ -223,9 +212,7 @@ class BudgetApp {
 
         if (target.dataset && target.dataset.editbtn !== undefined) {
             this.editItem(target);
-        }
-
-        else if (target.dataset && target.dataset.deletebtn !== undefined) {
+        } else if (target.dataset && target.dataset.deletebtn !== undefined) {
             this.deleteItem(target);
         }
     }
@@ -233,33 +220,32 @@ class BudgetApp {
     // Editing the created row
     editItem(target) {
         console.log("Edit Item");
-
-        // const lis = target.parentElement.parentElement;
-        // console.log(lis);
-
-        // return {
-        //     element: lis
-        // }
-
-        console.log("id:  " + this.id);
         this.descriptionField.value = "Xxxx";
         this.valueField.value = "00"
-        
+
     }
 
     // Delete a row
     deleteItem(target) {
         const elementId = parseInt(target.parentElement.parentElement.id);
-        const elementItem =target.parentElement.parentElement;
-        console.log(elementItem);
+        const elementItem = target.parentElement.parentElement;
 
         this.listOfItems = this.listOfItems.filter((item) => {
-            return(item.id !== elementId);
+            return (item.id !== elementId);
         });
-    
+        elementItem.remove();
+        this.numberOfItems--;
 
-        //co z numberofitems??
         this.setlocalStorage()
-        this.assignGetLocalStorage(elementId,elementItem);
+
+        this.updateBudget();
+    }
+
+    updateBudget(){
+        console.log(this.operationBtn);
+        if(this.operationBtn.contains('sign__plus')){
+            console.log('lol');
+        }
+         
     }
 }
