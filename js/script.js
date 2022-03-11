@@ -168,19 +168,29 @@ class BudgetApp {
     }
 
     // Display on screen an earlier set Items
-    assignGetLocalStorage() {
-        console.log(this.listOfItems);
+    assignGetLocalStorage(elementId, elementItem) {
         this.listOfItems.forEach(
             (item) => {
-                if (item.opBtnCla == "sign__plus") {
+                // console.log(this.listOfItems);
+
+                if(item.id == elementId){
+
+                
+
+                if (item.opBtnCla == "sign__plus" ) {
                     this.listIncomes.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "+" + item.value + "zł"))
                     this.sum += parseFloat(item.value);
                 } else if (item.opBtnCla == "sign__minus") {
                     this.listExpenses.insertAdjacentHTML('beforeend', this.createItem(item.id, item.opBtnCla, item.description, "-" + item.value + "zł"))
                     this.sum -= parseFloat(item.value);
                 }
+            }
+            else{
+                elementItem.remove();
+            }
                 this.id = item.id + 1;
                 this.totalBudget.innerHTML = this.sum.toFixed(2) + "zł";
+
             });
     }
     
@@ -239,34 +249,17 @@ class BudgetApp {
 
     // Delete a row
     deleteItem(target) {
-        const elementId = parseInt(target.parentElement.parentElement.id);    
-
-        // kopiatabablicy.splice(lol, 1);
-
-
-        // var filteredtab =  kopiatabablicy.filter(item => {
-        //     // console.log(item.id + typeof(item.id));
-        //     // console.log(lis + typeof(lol));
-        //     console.log(item.id !== lol)
-        //    return item.id !== lis
-        // });
-        // console.log(filteredtab);
-
-        // var el = document.getElementById('lis');
-
-        // el.remove();
-
-        // var kopiatabablicy = this.listOfItems;
-
+        const elementId = parseInt(target.parentElement.parentElement.id);
+        const elementItem =target.parentElement.parentElement;
+        console.log(elementItem);
 
         this.listOfItems = this.listOfItems.filter((item) => {
             return(item.id !== elementId);
         });
     
-         console.log(this.listOfItems);
 
         //co z numberofitems??
         this.setlocalStorage()
-        this.assignGetLocalStorage();
+        this.assignGetLocalStorage(elementId,elementItem);
     }
 }
