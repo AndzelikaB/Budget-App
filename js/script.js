@@ -209,7 +209,6 @@ class BudgetApp {
     }
 
     clickF(target) {
-
         if (target.dataset && target.dataset.editbtn !== undefined) {
             this.editItem(target);
         } else if (target.dataset && target.dataset.deletebtn !== undefined) {
@@ -230,6 +229,9 @@ class BudgetApp {
         const elementId = parseInt(target.parentElement.parentElement.id);
         const elementItem = target.parentElement.parentElement;
 
+        const not = target.parentElement.parentElement;
+
+console.log(not);
         this.listOfItems = this.listOfItems.filter((item) => {
             return (item.id !== elementId);
         });
@@ -237,15 +239,21 @@ class BudgetApp {
         this.numberOfItems--;
 
         this.setlocalStorage()
-
         this.updateBudget();
     }
 
     updateBudget(){
-        console.log(this.operationBtn);
-        if(this.operationBtn.contains('sign__plus')){
-            console.log('lol');
+       const mr = this.operationBtn.className;
+       console.log(this.valueField.value)
+        if(mr =='sign__plus'){
+            this.totalBudget = this.totalBudget - this.valueField.value;
+            
         }
+
+        var kk = this.totalBudget.toString();
+        console.log(typeof(kk))
+        this.totalBudget.innerHTML = kk;
+
          
     }
 }
