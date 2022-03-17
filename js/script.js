@@ -229,9 +229,6 @@ class BudgetApp {
         const elementId = parseInt(target.parentElement.parentElement.id);
         const elementItem = target.parentElement.parentElement;
 
-        const not = target.parentElement.parentElement;
-
-console.log(not);
         this.listOfItems = this.listOfItems.filter((item) => {
             return (item.id !== elementId);
         });
@@ -243,17 +240,18 @@ console.log(not);
     }
 
     updateBudget(){
-       const mr = this.operationBtn.className;
-       console.log(this.valueField.value)
-        if(mr =='sign__plus'){
+        console.log(this.totalBudget);
+       const nameOfClass = this.operationBtn.className;
+       console.log(this.valueField)
+        if(nameOfClass =='sign__plus'){
             this.totalBudget = this.totalBudget - this.valueField.value;
-            
+        }else if(nameOfClass =='sign__minus'){
+            this.totalBudget =  this.totalBudget + this.valueField.value;
         }
+        console.log(this.totalBudget);
 
-        var kk = this.totalBudget.toString();
-        console.log(typeof(kk))
-        this.totalBudget.innerHTML = kk;
-
-         
+        var convert = this.totalBudget.toString();
+        console.log(convert);
+        this.totalBudget.innerHTML = convert;
     }
 }
