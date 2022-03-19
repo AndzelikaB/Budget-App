@@ -132,6 +132,7 @@ class BudgetApp {
             // this.addBtn.disabled = true;
             this.announcement.innerHTML = "Fill in all fields";
         }
+        
     }
 
     getInputsValues(id, opBtn, description, value) {
@@ -168,7 +169,7 @@ class BudgetApp {
     }
 
     // Display on screen an earlier set Items
-    assignGetLocalStorage(elementId, elementItem) {
+    assignGetLocalStorage() {
         this.listOfItems.forEach(
             (item) => {
                 if (item.opBtnCla == "sign__plus") {
@@ -227,6 +228,7 @@ class BudgetApp {
     // Delete a row
     deleteItem(target) {
         const elementId = parseInt(target.parentElement.parentElement.id);
+        console.log(target.parentElement.parentElement.descriptionField)
         const elementItem = target.parentElement.parentElement;
 
         this.listOfItems = this.listOfItems.filter((item) => {
@@ -240,18 +242,22 @@ class BudgetApp {
     }
 
     updateBudget(){
-        console.log(this.totalBudget);
-       const nameOfClass = this.operationBtn.className;
-       console.log(this.valueField)
-        if(nameOfClass =='sign__plus'){
-            this.totalBudget = this.totalBudget - this.valueField.value;
-        }else if(nameOfClass =='sign__minus'){
-            this.totalBudget =  this.totalBudget + this.valueField.value;
-        }
-        console.log(this.totalBudget);
+       var nameOfClass = this.opBtnCla;
+       console.log(nameOfClass);
 
-        var convert = this.totalBudget.toString();
-        console.log(convert);
-        this.totalBudget.innerHTML = convert;
+       var budget = parseInt(this.totalBudget.innerHTML);
+       var getValue = parseInt(this.valueField.value);
+
+        if(nameOfClass =='sign__plus'){
+            console.log(budget - getValue);
+            budget = budget - getValue;
+            console.log(budget);
+        }else if(nameOfClass =='sign__minus'){
+            console.log(budget + getValue);
+            budget = budget + getValue;
+            console.log(budget);
+        }
+        console.log(budget);
+        this.totalBudget.innerHTML = budget;
     }
 }
