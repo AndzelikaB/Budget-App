@@ -228,14 +228,20 @@ class BudgetApp {
     // Delete a row
     deleteItem(target) {
         const elementId = parseInt(target.parentElement.parentElement.id);
-        console.log(target.parentElement.parentElement.descriptionField)
+        console.log(target.parentElement.parentElement.classList)
+        var lol = this.operationBtn
+        console.log(lol)
+        console.log(lol.value)
+        console.log(target.parentElement.parentElement)
+
         const elementItem = target.parentElement.parentElement;
 
         this.listOfItems = this.listOfItems.filter((item) => {
-            return (item.id !== elementId);
+            return (item.id !== elementId && lol== item.opBtnCla);
         });
         elementItem.remove();
         this.numberOfItems--;
+            console.log(lol)
 
         this.setlocalStorage()
         this.updateBudget();
@@ -261,3 +267,5 @@ class BudgetApp {
         this.totalBudget.innerHTML = budget;
     }
 }
+
+//jak pobrać klase z danego usuwanego elementu zeby pozniej ja podównac do updatebudget
